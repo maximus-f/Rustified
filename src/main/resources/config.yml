@@ -1,0 +1,7 @@
+# Welcome to the Rustified configuration file!
+# If you have any questions or concerns, message me on Spigot @ Perotin or discord (Perotin#3447)
+
+# What item should be used as a 'currency' in order to get blue prints to learn new items?
+base-item: "EMERALD"
+
+# BluePrint tiers

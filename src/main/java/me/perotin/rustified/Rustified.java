@@ -2,6 +2,7 @@ package me.perotin.rustified;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.RustifiedPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +26,10 @@ public class Rustified extends JavaPlugin {
         saveResource("players.yml", false);
         saveResource("messages.yml", false);
         RustFile.loadFiles();
+        saveDefaultConfig();
+        for(Player player : Bukkit.getOnlinePlayers()){
+            getPlayerObjectFor(player);
+        }
 
     }
 
@@ -48,6 +53,13 @@ public class Rustified extends JavaPlugin {
         return instance;
     }
 
+    /**
+     *
+     * @param toFind
+     * @return player object
+     * @apiNote this method will always return a RustifiedPlayer object by consturcting a new one. It will load
+     * a new player in if it is already not stored in mem.
+     */
     public static RustifiedPlayer getPlayerObjectFor(Player toFind){
         UUID uuid = toFind.getUniqueId();
         if(!Rustified.getInstance().getRustPlayers().isEmpty()){

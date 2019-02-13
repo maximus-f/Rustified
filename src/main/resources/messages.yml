@@ -1,0 +1,8 @@
+# Welcome to the Rustified messages file.
+# If you have any questions or concerns, message me on Spigot @ Perotin or discord (Perotin#3447)
+
+
+blueprint-item: "&3Blue Print: &b$name$"
+blueprint-lore: "&7Right click to learn!"
+
+crafting-denied: "&3You need to learn the blueprint to craft this item! / &3Unsure what this means? Type /blueprint help to learn more about blue prints!"
