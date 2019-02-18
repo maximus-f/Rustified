@@ -1,4 +1,7 @@
 package me.perotin.rustified;
+import me.perotin.rustified.events.CraftEvent;
+import me.perotin.rustified.events.CreateWorkbenchEvent;
+import me.perotin.rustified.events.JoinEvent;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.RustifiedPlayer;
@@ -27,6 +30,7 @@ public class Rustified extends JavaPlugin {
         saveResource("messages.yml", false);
         RustFile.loadFiles();
         saveDefaultConfig();
+        setup();
         for(Player player : Bukkit.getOnlinePlayers()){
             getPlayerObjectFor(player);
         }
@@ -39,6 +43,13 @@ public class Rustified extends JavaPlugin {
             rp.savePlayer();
         }
 
+
+    }
+
+    public void setup(){
+        Bukkit.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
 
     }
 
