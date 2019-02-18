@@ -1,7 +1,56 @@
 # Welcome to the Rustified configuration file!
 # If you have any questions or concerns, message me on Spigot @ Perotin or discord (Perotin#3447)
 
-# What item should be used as a 'currency' in order to get blue prints to learn new items?
-base-item: "EMERALD"
 
-# BluePrint tiers
+# Workbench tiers:
+# See full list of names here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+level-1: IRON_BLOCK
+level-2: GOLD_BLOCK
+level-3: EMERALD_BLOCK
+
+# What item should the workbenches use for researching new items?
+level-1-item: IRON_INGOT
+level-2-item: GOLD_INGOT
+level-3-item: EMERALD
+
+
+# What items can players get through using a level 1 workbench?
+level-1-items:
+   - IRON_PICKAXE
+   - IRON_SHOVEL
+   - IRON_SWORD
+   - IRON_AXE
+   - IRON_HELMET
+   - IRON_CHESTPLATE
+   - IRON_LEGGINGS
+   - IRON_BOOTS
+   - IRON_HOE
+   - IRON_BUCKET
+   - IRON_TRAPDOOR
+   - BOW
+   - IRON_DOOR
+   - BOOK
+
+level-2-items:
+   - GOLDEN_APPLE
+   - GOLDEN_PICKAXE
+   - HOPPER
+   - TNT
+   - REDSTONE_TORCH
+   - BREWING_STAND
+   - GLASS_BOTTLE
+   - FLINT_AND_STEEL
+   - ENCHANTING_TABLE
+   - BOOKSHELF
+
+level-3-items:
+   - DIAMOND_BOOTS
+   - DIAMOND_CHESTPLATE
+   - DIAMOND_LEGGINGS
+   - DIAMOND_HELMET
+   - DIAMOND_SWORD
+   - DIAMOND_AXE
+   - DIAMOND_PICKAXE
+   - DIAMOND_SHOVEL
+   - DIAMOND_HOE
+   - ENCHANTED_GOLDEN_APPLE

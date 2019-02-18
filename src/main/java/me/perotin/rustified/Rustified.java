@@ -2,8 +2,10 @@ package me.perotin.rustified;
 import me.perotin.rustified.events.CraftEvent;
 import me.perotin.rustified.events.CreateWorkbenchEvent;
 import me.perotin.rustified.events.JoinEvent;
+import me.perotin.rustified.events.WorkbenchUseEvent;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
+import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,8 +21,13 @@ import java.util.UUID;
 public class Rustified extends JavaPlugin {
 
 
+    /*
+    TODO
+    1. Interact with workbenches event
+     */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
+    private BluePrintData data;
 
     @Override
     public void onEnable(){
@@ -50,6 +57,8 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
+        Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
+        this.data = BluePrintData.getSingleton();
 
     }
 
