@@ -1,8 +1,5 @@
 package me.perotin.rustified;
-import me.perotin.rustified.events.CraftEvent;
-import me.perotin.rustified.events.CreateWorkbenchEvent;
-import me.perotin.rustified.events.JoinEvent;
-import me.perotin.rustified.events.WorkbenchUseEvent;
+import me.perotin.rustified.events.*;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.BluePrintData;
@@ -24,6 +21,9 @@ public class Rustified extends JavaPlugin {
     /*
     TODO
     1. Interact with workbenches event
+    1.2 Workbench creation broken, casting sign to something wrong etc.
+    2. DRY code on BluePrintData
+    3. Inventory#getName is deprecated, look into sometime.
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
@@ -53,11 +53,12 @@ public class Rustified extends JavaPlugin {
 
     }
 
-    public void setup(){
+    private void setup(){
         Bukkit.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
+        Bukkit.getPluginManager().registerEvents(new WorkbenchMenuClickEvent(), this);
         this.data = BluePrintData.getSingleton();
 
     }

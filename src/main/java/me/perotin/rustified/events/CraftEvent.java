@@ -25,11 +25,17 @@ public class CraftEvent implements Listener {
                 BluePrintData data = BluePrintData.getSingleton();
                 if(data.isMaterialBluePrintable(recipe.getResult().getType()) && !rustifiedPlayer.getBlueprints().contains(new BluePrint(recipe.getResult().getType()))){
                     // cannot craft it!
+
                     event.setCancelled(true);
-                    for(ItemStack item : event.getInventory().getMatrix()){
-                        clicker.getInventory().addItem(item);
-                    }
                     clicker.closeInventory();
+                    clicker.getInventory().remove(event.getCurrentItem());
+                    if(event.getInventory().getContents().length != 0) {
+                        for (ItemStack item : event.getInventory().getContents()) {
+                            if(item != null) {
+                                clicker.getInventory().addItem(item);
+                            }
+                        }
+                    }
                     String msg = Messages.getMessage("crafting-denied");
                     int levelForItem = data.getLevelFor(new BluePrint(recipe.getResult().getType()));;
                     String required = Messages.getMessage("workbench-level-required").replace("$number$", levelForItem+"");

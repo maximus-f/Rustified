@@ -41,11 +41,11 @@ public class CreateWorkbenchEvent implements Listener {
                         if (against.getRelative(face).getType() == m) {
                             // we got a workbench
                             event.setCancelled(true);
-                            Sign levelOne = (Sign) against.getState();
+                            Sign levelOne = (Sign) against.getState().getData();
                             levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
 
                             Block nextBlock = against.getRelative(face);
-                            Sign levelOneTwo = (Sign) nextBlock.getState();
+                            Sign levelOneTwo = (Sign) nextBlock.getState().getData();
                             levelOneTwo.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
 
                         }

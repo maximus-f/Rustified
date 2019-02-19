@@ -21,6 +21,8 @@ public class RustifiedPlayer {
 
     public RustifiedPlayer(UUID uuid, String name, ArrayList<BluePrint> blueprints){
         this.uuid = uuid;
+        this.name = name;
+        this.blueprints = blueprints;
     }
 
     public UUID getUuid() {

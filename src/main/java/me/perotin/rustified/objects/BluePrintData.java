@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 /* Created by Perotin on 2/18/19 */
 public class BluePrintData {
@@ -69,6 +70,19 @@ public class BluePrintData {
 
     }
 
+    public int getLevelForWorkbench(Material type){
+        if(getWorkbenchComponents().get(1).keySet().contains(type)){
+            return 1;
+        } if(getWorkbenchComponents().get(2).keySet().contains(type)){
+            return 2;
+        }if(getWorkbenchComponents().get(3).keySet().contains(type)){
+            return 3;
+        }
+        return 0;
+    }
+
+
+
     public Map<Integer, Map<Material, Material>> getWorkbenchComponents(){
         return this.workbenchComponents;
     }
@@ -82,9 +96,9 @@ public class BluePrintData {
     }
 
     public int getLevelFor(BluePrint bp){
-        if(levelThreeBluePrints.contains(bp)) return 3;
-        if(levelTwoBluePrints.contains(bp)) return 2;
-        if(levelOneBluePrints.contains(bp)) return 1;
+        if(levelThreeBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial())) return 3;
+        if(levelTwoBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial())) return 2;
+        if(levelOneBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial())) return 1;
         return 0;
 
     }
