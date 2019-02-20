@@ -35,18 +35,35 @@ public class BluePrint implements ConfigurationSerializable  {
         item.setItemMeta(meta);
     }
 
+    /**
+     * @return material for blueprint
+     */
     public Material getMaterial(){
         return this.type;
     }
 
+    /**
+     *
+     * @param values
+     * @return Blue print from serialized map
+     */
     public static BluePrint valueOf(Map<String, Object> values){
         return new BluePrint(Material.valueOf((String) values.get("type")));
     }
 
+    /**
+     * Give a player the blue print
+     * @param toGive
+     */
     public void giveTo(Player toGive){
         toGive.getInventory().addItem(item);
     }
 
+
+    /**
+     *
+     * @return serialized map
+     */
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
@@ -54,6 +71,7 @@ public class BluePrint implements ConfigurationSerializable  {
         return map;
     }
 
+    //TODO get random blue print, might need to re-evaluate the ownership of this method
     public static BluePrint getRandomBluePrint(){
         return new BluePrint(Material.AIR);
     }

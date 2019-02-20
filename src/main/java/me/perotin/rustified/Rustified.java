@@ -27,7 +27,6 @@ public class Rustified extends JavaPlugin {
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
-    private BluePrintData data;
 
     @Override
     public void onEnable(){
@@ -59,14 +58,13 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchMenuClickEvent(), this);
-        this.data = BluePrintData.getSingleton();
 
     }
 
     public HashSet<RustifiedPlayer> getRustPlayers() {
         return players;
     }
-    public void addRustPlayer(RustifiedPlayer player){
+    private void addRustPlayer(RustifiedPlayer player){
         players.add(player);
     }
 

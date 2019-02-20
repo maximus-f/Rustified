@@ -15,6 +15,10 @@ public class JoinEvent implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player joiner = event.getPlayer();
         RustifiedPlayer rp = Rustified.getPlayerObjectFor(joiner);
+        // check for same name
+        if(!rp.getName().equals(joiner.getName())){
+            rp.setName(joiner.getName());
+        }
 
 
     }

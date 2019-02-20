@@ -70,6 +70,11 @@ public class BluePrintData {
 
     }
 
+    /**
+     * Gets the level of the workbench based off of the material blocks
+     * @param type
+     * @return
+     */
     public int getLevelForWorkbench(Material type){
         if(getWorkbenchComponents().get(1).keySet().contains(type)){
             return 1;
@@ -82,7 +87,10 @@ public class BluePrintData {
     }
 
 
-
+    /**
+     * Returns a map with level and inner key material for workbench material and inner value of item used for workbench
+     * @return
+     */
     public Map<Integer, Map<Material, Material>> getWorkbenchComponents(){
         return this.workbenchComponents;
     }
@@ -95,13 +103,23 @@ public class BluePrintData {
         return potentialMaterials;
     }
 
+    /**
+     * Get the level of workbench needed to research a blue print
+     * @param bp
+     * @return
+     */
     public int getLevelFor(BluePrint bp){
         if(levelThreeBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial())) return 3;
         if(levelTwoBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial())) return 2;
         if(levelOneBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial())) return 1;
         return 0;
-
     }
+
+    /**
+     * Returns a boolean of whether a material requires a blue print
+     * @param type
+     * @return
+     */
     public boolean isMaterialBluePrintable(Material type){
         for(Material material : convertToMaterial(levelThreeBluePrints)){
             if(material == type){
@@ -123,6 +141,11 @@ public class BluePrintData {
     }
 
 
+    /**
+     * converts a List of blue prints to a list of material
+     * @param bluePrintList
+     * @return
+     */
     private List<Material> convertToMaterial(List<BluePrint> bluePrintList){
         List<Material> materials = new ArrayList<>();
         for(BluePrint print : bluePrintList){
@@ -153,6 +176,9 @@ public class BluePrintData {
         return bluePrintArrayList;
     }
 
+    /**
+     * @return singleton instance
+     */
     public static BluePrintData getSingleton(){
         if(singleton == null){
             singleton = new BluePrintData();
