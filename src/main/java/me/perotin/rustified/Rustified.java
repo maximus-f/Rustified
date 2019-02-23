@@ -1,8 +1,8 @@
 package me.perotin.rustified;
+
 import me.perotin.rustified.events.*;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
-import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -32,24 +32,18 @@ public class Rustified extends JavaPlugin {
     public void onEnable(){
         this.players = new HashSet<>();
         instance = this;
-        saveResource("players.yml", false);
-        saveResource("messages.yml", false);
         RustFile.loadFiles();
         saveDefaultConfig();
         setup();
-        for(Player player : Bukkit.getOnlinePlayers()){
-            getPlayerObjectFor(player);
-        }
+        Bukkit.getOnlinePlayers().forEach(Rustified::getPlayerObjectFor);
+
 
     }
 
+    // save each player
     @Override
     public void onDisable(){
-        for(RustifiedPlayer rp : players){
-            rp.savePlayer();
-        }
-
-
+        players.forEach(RustifiedPlayer::savePlayer);
     }
 
     private void setup(){
@@ -83,7 +77,12 @@ public class Rustified extends JavaPlugin {
         UUID uuid = toFind.getUniqueId();
         if(!Rustified.getInstance().getRustPlayers().isEmpty()){
             for(RustifiedPlayer player : Rustified.getInstance().getRustPlayers()){
-                if(player.getUuid().equals(uuid)) return player;
+                if(player.getUuid().equals(uuid)) {
+                    if(!toFind.getName().equals(player.getName())){
+                        player.setName(toFind.getName());
+                    }
+                    return player;
+                }
             }
         }
         // not already loaded
@@ -105,6 +104,11 @@ public class Rustified extends JavaPlugin {
 
     }
 
+    /**
+     *
+     * @param list of string
+     * @return list of blue prints from string
+     */
     private ArrayList<BluePrint> convertToBluePrintList(List<String> list){
         ArrayList<BluePrint> bluePrints = new ArrayList<>();
         for(String string : list){

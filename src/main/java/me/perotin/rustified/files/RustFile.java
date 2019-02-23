@@ -129,6 +129,9 @@ public class RustFile {
     }
 
     public static void loadFiles(){
+        Rustified.getInstance().saveResource("players.yml", false);
+        Rustified.getInstance().saveResource("messages.yml", false);
+
         for(RustFileType type : RustFileType.values()){
             new RustFile(type).load();
         }

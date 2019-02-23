@@ -23,6 +23,9 @@ public class BluePrint implements ConfigurationSerializable  {
     private ItemStack item;
 
 
+    /**
+     * @param type of material to make a blueprint for
+     */
     public BluePrint(Material type) {
         this.type = type;
         this.item = new ItemStack(Material.MAP);
@@ -51,6 +54,18 @@ public class BluePrint implements ConfigurationSerializable  {
         return new BluePrint(Material.valueOf((String) values.get("type")));
     }
 
+
+    /**
+     *
+     * @param print to compare
+     * @return boolean if map is equal to other map
+     */
+    public boolean equals(BluePrint print){
+        if(type.equals(print.getMaterial())){
+            return true;
+        }
+        return false;
+    }
     /**
      * Give a player the blue print
      * @param toGive

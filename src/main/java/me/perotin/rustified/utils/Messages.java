@@ -6,6 +6,8 @@ import org.bukkit.ChatColor;
 /* Created by Perotin on 2/12/19 */
 public class Messages {
     private static RustFile file = new RustFile(RustFile.RustFileType.MESSAGES);
+    private Messages(){}
+
     public static String getMessage(String path){
         return ChatColor.translateAlternateColorCodes('&', file.getString(path));
     }

@@ -12,9 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /* Created by Perotin on 2/17/19 */
 public class CreateWorkbenchEvent implements Listener {
 
@@ -40,7 +37,7 @@ public class CreateWorkbenchEvent implements Listener {
                     for (BlockFace face : possibleLocations) {
                         if (against.getRelative(face).getType() == m) {
                             // we got a workbench
-                            event.setCancelled(true);
+                            // this code doesn't work, bad cast. Need to do some researching why
                             Sign levelOne = (Sign) against.getState().getData();
                             levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
 

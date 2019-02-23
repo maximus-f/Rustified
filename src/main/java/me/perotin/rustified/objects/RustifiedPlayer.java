@@ -38,6 +38,10 @@ public class RustifiedPlayer {
         return uuid;
     }
 
+
+    /**
+     * @return name of player
+     */
     public String getName() {
         return name;
     }
@@ -51,7 +55,6 @@ public class RustifiedPlayer {
     }
 
     /**
-     *
      * @return blueprints that player has
      */
     public ArrayList<BluePrint> getBlueprints() {
