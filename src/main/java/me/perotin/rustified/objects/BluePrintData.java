@@ -32,7 +32,7 @@ public class BluePrintData {
         this.levelThreeBluePrints = convertStringListToBluePrint(config.getStringList("level-3-items"));
         this.workbenchComponents = new HashMap<>();
         try {
-            for (int x = 1; x < 3; x++) {
+            for (int x = 1; x < 4; x++) {
                 Map<Material, Material> innerMap1 = new HashMap<>();
                 innerMap1.put(Material.valueOf(config.getString("level-" + x)), Material.valueOf(config.getString("level-" + x + "-item")));
                 workbenchComponents.put(x, innerMap1);
@@ -65,8 +65,7 @@ public class BluePrintData {
             }
         }
         Random random = new Random();
-        BluePrint newMap = potentialBluePrints.get(random.nextInt(potentialBluePrints.size()));
-        return newMap;
+        return potentialBluePrints.get(random.nextInt(potentialBluePrints.size()));
 
 
     }

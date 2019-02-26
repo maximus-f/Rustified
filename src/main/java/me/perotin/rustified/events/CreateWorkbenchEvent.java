@@ -23,7 +23,6 @@ public class CreateWorkbenchEvent implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlaceSign(BlockPlaceEvent event) {
-        Player placer = event.getPlayer();
         Block sign = event.getBlock();
         if (sign.getType() == Material.WALL_SIGN) {
             Block against = event.getBlockAgainst();
@@ -33,16 +32,19 @@ public class CreateWorkbenchEvent implements Listener {
 
             for (Material m : data.getWorkbenchBlocks()) {
                 if (against.getType() == m) {
+                    // all possible directions of next block
                     BlockFace[] possibleLocations = {BlockFace.DOWN, BlockFace.EAST, BlockFace.NORTH, BlockFace.WEST, BlockFace.UP, BlockFace.SOUTH};
                     for (BlockFace face : possibleLocations) {
+                        // check for type matching
                         if (against.getRelative(face).getType() == m) {
                             // we got a workbench
                             // this code doesn't work, bad cast. Need to do some researching why
-                            Sign levelOne = (Sign) against.getState().getData();
+
+                            Sign levelOne = (Sign) against.getState(); // This line has the issue
                             levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
 
                             Block nextBlock = against.getRelative(face);
-                            Sign levelOneTwo = (Sign) nextBlock.getState().getData();
+                            Sign levelOneTwo = (Sign) nextBlock.getState();
                             levelOneTwo.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
 
                         }
