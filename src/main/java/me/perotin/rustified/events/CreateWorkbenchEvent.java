@@ -2,12 +2,12 @@ package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
 import me.perotin.rustified.objects.BluePrintData;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -29,7 +29,6 @@ public class CreateWorkbenchEvent implements Listener {
             BluePrintData data = BluePrintData.getSingleton();
 
 
-
             for (Material m : data.getWorkbenchBlocks()) {
                 if (against.getType() == m) {
                     // all possible directions of next block
@@ -40,12 +39,12 @@ public class CreateWorkbenchEvent implements Listener {
                             // we got a workbench
                             // this code doesn't work, bad cast. Need to do some researching why
 
-                            Sign levelOne = (Sign) against.getState(); // This line has the issue
-                            levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
-
-                            Block nextBlock = against.getRelative(face);
-                            Sign levelOneTwo = (Sign) nextBlock.getState();
-                            levelOneTwo.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
+                            Sign levelOne = (Sign) sign.getState(); // This line has the issue
+                            levelOne.setEditable(true);
+                            levelOne.setLine(0, "Workbench Level: 1");
+//                            Block nextBlock = against.getRelative(face);
+//                            Sign levelOneTwo = (Sign) nextBlock.getState();
+//                            levelOneTwo.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
 
                         }
                     }
