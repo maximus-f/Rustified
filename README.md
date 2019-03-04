@@ -1,3 +1,5 @@
+![alt text] (https://github.com/Perotins/Rustified/images/Rustified.png)
+
 # What is Rustified?
 Rustified is a minecraft plugin that adds mechanics from the game of Rust. If you are familiar with Rust and how it works, understanding the functionalities of this
 plugin will be very easy. There are several main mechanics that come with this plugin that being:
