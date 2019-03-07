@@ -14,10 +14,11 @@ public class WorkbenchMenuClickEvent implements Listener {
         if(event.getWhoClicked() instanceof Player){
             Player clicker = (Player) event.getWhoClicked();
             Inventory clicked = event.getClickedInventory();
+
             boolean namesMatch = false;
             for(int x = 1; x < 3; x++){
                 // check this deprecatedness
-                if(clicked.getTitle().equals("Workbench Level: "+ x)) namesMatch = true;
+                if(event.getView().getTitle().equals("Workbench Level: "+ x)) namesMatch = true;
             }
 
             if(namesMatch){

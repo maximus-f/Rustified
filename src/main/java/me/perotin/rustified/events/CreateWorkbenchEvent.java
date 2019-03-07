@@ -21,6 +21,7 @@ public class CreateWorkbenchEvent implements Listener {
         this.plugin = plugin;
     }
 
+    // Needs some fine tuning, currently carries through if sign is placed on a face with a block not next to it.
     @EventHandler(ignoreCancelled = true)
     public void onPlaceSign(BlockPlaceEvent event) {
         Block sign = event.getBlock();
@@ -36,16 +37,12 @@ public class CreateWorkbenchEvent implements Listener {
                     for (BlockFace face : possibleLocations) {
                         // check for type matching
                         if (against.getRelative(face).getType() == m) {
-                            // we got a workbench
-                            // this code doesn't work, bad cast. Need to do some researching why
 
-                            Sign levelOne = (Sign) sign.getState(); // This line has the issue
+                            Sign levelOne = (Sign) sign.getState();
                             levelOne.setEditable(true);
-                            levelOne.setLine(0, "Workbench Level: 1");
-//                            Block nextBlock = against.getRelative(face);
-//                            Sign levelOneTwo = (Sign) nextBlock.getState();
-//                            levelOneTwo.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench Level: &01"));
-
+                            levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench:"));
+                            levelOne.setLine(2, "Lv.1");
+                            levelOne.update();
                         }
                     }
                 }

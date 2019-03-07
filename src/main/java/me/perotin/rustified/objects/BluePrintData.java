@@ -27,9 +27,9 @@ public class BluePrintData {
     private BluePrintData() {
         Rustified plugin = Rustified.getInstance();
         FileConfiguration config = plugin.getConfig();
-        this.levelOneBluePrints = convertStringListToBluePrint(config.getStringList("level-1-items"));
-        this.levelTwoBluePrints = convertStringListToBluePrint(config.getStringList("level-2-items"));
-        this.levelThreeBluePrints = convertStringListToBluePrint(config.getStringList("level-3-items"));
+        this.levelOneBluePrints = convertStringListToBluePrint2(config.getStringList("level-1-items"));
+        this.levelTwoBluePrints = convertStringListToBluePrint2(config.getStringList("level-2-items"));
+        this.levelThreeBluePrints = convertStringListToBluePrint2(config.getStringList("level-3-items"));
         this.workbenchComponents = new HashMap<>();
         try {
             for (int x = 1; x < 4; x++) {
@@ -189,23 +189,20 @@ public class BluePrintData {
      * @param convert list of strings to convert to a blueprint collection
      * @return arraylist of converted strings
      */
-    private ArrayList<BluePrint> convertStringListToBluePrint(List<String> convert) {
+    private ArrayList<BluePrint> convertStringListToBluePrint2(List<String> convert) {
         ArrayList<BluePrint> bluePrintArrayList = new ArrayList<>();
         for (String s : convert) {
-            Material toAdd;
-            try {
-                toAdd = Material.valueOf(s);
-            } catch (IllegalArgumentException ex) {
+            if(Material.getMaterial(s) != null){
+                bluePrintArrayList.add(new BluePrint(Material.getMaterial(s)));
+            } else {
                 Bukkit.getLogger().log(Level.WARNING, "Invalid material name '" + s + "' entered in Rustified/config.yml! To see proper names visit https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html\n" +
-                        "level");
-                ex.printStackTrace();
-                continue;
+                      "level");
             }
-            BluePrint bp = new BluePrint(toAdd);
-            bluePrintArrayList.add(bp);
         }
         return bluePrintArrayList;
     }
+
+
 
     /**
      * @return singleton instance

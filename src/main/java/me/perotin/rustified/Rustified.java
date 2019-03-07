@@ -3,6 +3,7 @@ package me.perotin.rustified;
 import me.perotin.rustified.events.*;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
+import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,17 +22,19 @@ public class Rustified extends JavaPlugin {
     /*
     TODO
     1. Interact with workbenches event
-    1.2 Workbench creation broken, casting sign to something wrong etc.
     2. DRY code on BluePrintData
     3. Inventory#getName is deprecated, look into sometime.
+    4. Dynamicly set level on sign based on material of workbench
+    5. Color of signs are not staying
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
 
     @Override
     public void onEnable(){
-        this.players = new HashSet<>();
         instance = this;
+        this.players = new HashSet<>();
+        BluePrintData.getSingleton();
         RustFile.loadFiles();
         saveDefaultConfig();
         setup();
