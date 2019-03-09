@@ -40,9 +40,6 @@ public class RustFile {
             this.type = WORKBENCHES;
         }
 
-
-
-
     }
 
     public void save() {
@@ -139,10 +136,20 @@ public class RustFile {
         }
     }
 
+    public File getFile(){
+        return this.file;
+    }
     public static void loadFiles(){
-        Rustified.getInstance().saveResource("players.yml", false);
-        Rustified.getInstance().saveResource("messages.yml", false);
-        Rustified.getInstance().saveResource("workbenches.yml", false);
+        if(!new RustFile(PLAYERS).getFile().exists()) {
+            Rustified.getInstance().saveResource("players.yml", false);
+        }
+        if(!new RustFile(MESSAGES).getFile().exists()) {
+            Rustified.getInstance().saveResource("messages.yml", false);
+        }
+        RustFile workbench = new RustFile(WORKBENCHES);
+        if(!workbench.getFile().exists()) {
+            Rustified.getInstance().saveResource("workbenches.yml", false);
+        }
 
         for(RustFileType type : RustFileType.values()){
             new RustFile(type).load();
