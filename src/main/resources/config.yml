@@ -13,6 +13,10 @@ level-1-item: IRON_INGOT
 level-2-item: GOLD_INGOT
 level-3-item: EMERALD
 
+# How many of each item should players need to use in order to get a blue print?
+level-1-amount: 15
+level2-amount: 20
+level-3-item: 5
 
 # What items can players get through using a level 1 workbench?
 level-1-items:

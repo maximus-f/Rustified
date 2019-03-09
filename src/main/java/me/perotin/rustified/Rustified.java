@@ -5,6 +5,7 @@ import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
+import me.perotin.rustified.objects.WorkbenchLocations;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +23,6 @@ public class Rustified extends JavaPlugin {
     /*
     TODO
     1. Interact with workbenches event
-    2. DRY code on BluePrintData
     3. Inventory#getName is deprecated, look into sometime.
     4. Dynamicly set level on sign based on material of workbench
     5. Color of signs are not staying
@@ -39,6 +39,7 @@ public class Rustified extends JavaPlugin {
         saveDefaultConfig();
         setup();
         Bukkit.getOnlinePlayers().forEach(Rustified::getPlayerObjectFor);
+        WorkbenchLocations.getWorkBenchLocations();
 
 
     }
@@ -47,6 +48,7 @@ public class Rustified extends JavaPlugin {
     @Override
     public void onDisable(){
         players.forEach(RustifiedPlayer::savePlayer);
+        WorkbenchLocations.getWorkBenchLocations().writeToFile();
     }
 
     private void setup(){
@@ -55,6 +57,7 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchMenuClickEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new BossBarMoveEvent(this), this);
 
     }
 

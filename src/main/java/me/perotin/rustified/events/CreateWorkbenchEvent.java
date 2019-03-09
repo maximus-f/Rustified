@@ -2,6 +2,7 @@ package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
 import me.perotin.rustified.objects.BluePrintData;
+import me.perotin.rustified.objects.WorkbenchLocations;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,6 +29,7 @@ public class CreateWorkbenchEvent implements Listener {
         if (sign.getType() == Material.WALL_SIGN) {
             Block against = event.getBlockAgainst();
             BluePrintData data = BluePrintData.getSingleton();
+            WorkbenchLocations locations = WorkbenchLocations.getWorkBenchLocations();
 
 
             for (Material m : data.getWorkbenchBlocks()) {
@@ -37,12 +39,13 @@ public class CreateWorkbenchEvent implements Listener {
                     for (BlockFace face : possibleLocations) {
                         // check for type matching
                         if (against.getRelative(face).getType() == m) {
-
+                            int level = data.getLevelForWorkbench(m);
                             Sign levelOne = (Sign) sign.getState();
                             levelOne.setEditable(true);
                             levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench:"));
-                            levelOne.setLine(2, "Lv.1");
+                            levelOne.setLine(2, "Lv."+level);
                             levelOne.update();
+                            locations.add(levelOne.getLocation());
                         }
                     }
                 }

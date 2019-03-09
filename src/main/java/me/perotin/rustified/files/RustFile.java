@@ -11,6 +11,7 @@ import java.io.*;
 
 import static me.perotin.rustified.files.RustFile.RustFileType.MESSAGES;
 import static me.perotin.rustified.files.RustFile.RustFileType.PLAYERS;
+import static me.perotin.rustified.files.RustFile.RustFileType.WORKBENCHES;
 
 
 public class RustFile {
@@ -33,6 +34,12 @@ public class RustFile {
             configuration = YamlConfiguration.loadConfiguration(file);
             this.type = PLAYERS;
         }
+        if (type == WORKBENCHES) {
+            file = new File(Rustified.getInstance().getDataFolder(), "workbenches.yml");
+            configuration = YamlConfiguration.loadConfiguration(file);
+            this.type = WORKBENCHES;
+        }
+
 
 
 
@@ -78,6 +85,10 @@ public class RustFile {
             case PLAYERS:
                 lang = new File(Rustified.getInstance().getDataFolder(), "players.yml");
                 defLangStream = Rustified.getInstance().getResource("players.yml");
+                break;
+            case WORKBENCHES:
+                lang = new File(Rustified.getInstance().getDataFolder(), "workbenches.yml");
+                defLangStream = Rustified.getInstance().getResource("workbenches.yml");
                 break;
 
         }
@@ -131,6 +142,7 @@ public class RustFile {
     public static void loadFiles(){
         Rustified.getInstance().saveResource("players.yml", false);
         Rustified.getInstance().saveResource("messages.yml", false);
+        Rustified.getInstance().saveResource("workbenches.yml", false);
 
         for(RustFileType type : RustFileType.values()){
             new RustFile(type).load();
@@ -140,7 +152,7 @@ public class RustFile {
 
     public enum RustFileType {
 
-        PLAYERS, MESSAGES,
+        PLAYERS, MESSAGES, WORKBENCHES
 
     }
 

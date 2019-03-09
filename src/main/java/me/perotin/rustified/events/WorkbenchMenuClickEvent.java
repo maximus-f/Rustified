@@ -1,5 +1,6 @@
 package me.perotin.rustified.events;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,13 +18,11 @@ public class WorkbenchMenuClickEvent implements Listener {
 
             boolean namesMatch = false;
             for(int x = 1; x < 3; x++){
-                // check this deprecatedness
                 if(event.getView().getTitle().equals("Workbench Level: "+ x)) namesMatch = true;
             }
 
             if(namesMatch){
                 // in the inventory
-                event.setCancelled(true);
 
             }
 

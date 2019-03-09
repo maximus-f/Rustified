@@ -32,6 +32,7 @@
                     <include>config.yml</include>
                     <include>messages.yml</include>
                     <include>players.yml</include>
+                    <include>workbenches.yml</include>
 
                 </includes>
             </resource>
