@@ -22,9 +22,7 @@ public class Rustified extends JavaPlugin {
 
     /*
     TODO
-    1. Interact with workbenches event
-    3. Inventory#getName is deprecated, look into sometime.
-    4. Dynamicly set level on sign based on material of workbench
+    1. Make boss bar go away if farther than 10 blocks.
     5. Color of signs are not staying
      */
     private static Rustified instance;

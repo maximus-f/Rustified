@@ -54,8 +54,7 @@ public class WorkbenchUseEvent implements Listener {
                                // Inventory menu = Bukkit.createInventory(null, InventoryType.MERCHANT, "Workbench Level: "+ data.getLevelForWorkbench(against.getType()));
                                 Merchant menu = Bukkit.createMerchant("Workbench Level: " + data.getLevelForWorkbench(against.getType()));
 
-                                BossBar bar = Bukkit.createBossBar("Insert 20 Iron Ingots", BarColor.WHITE, BarStyle.SOLID);
-                                bar.addPlayer(clicker);
+
                                 clicker.openMerchant(menu, false);
 
                             }

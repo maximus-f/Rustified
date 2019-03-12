@@ -21,6 +21,10 @@ public class WorkbenchLocations {
 
     }
 
+    public ArrayList<Location> getSignLocations(){
+        return this.signLocations;
+    }
+
 
     private ArrayList<Location> loadLocations(){
         RustFile file = new RustFile(RustFile.RustFileType.WORKBENCHES);
