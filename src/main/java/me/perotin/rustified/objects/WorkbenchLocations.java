@@ -44,6 +44,8 @@ public class WorkbenchLocations {
     }
     public void writeToFile(){
         RustFile file = new RustFile(RustFile.RustFileType.WORKBENCHES);
+        // clear the file
+        file.set("locations", null);
 
         int x = 0;
         for(Location location : signLocations){
@@ -55,6 +57,7 @@ public class WorkbenchLocations {
 
 
 
+    public void remove(Location remove) {signLocations.remove(remove);}
     public void add(Location add){
         signLocations.add(add);
     }

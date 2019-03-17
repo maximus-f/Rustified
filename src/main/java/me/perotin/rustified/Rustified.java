@@ -6,28 +6,35 @@ import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
 import me.perotin.rustified.objects.WorkbenchLocations;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
+import static me.perotin.rustified.events.BossBarMoveEvent.wrappers;
+
 /* Created by Perotin on 2/9/19 */
 public class Rustified extends JavaPlugin {
 
 
     /*
+
+    Boss bar keeps happening, check not working
     TODO
     1. Make boss bar go away if farther than 10 blocks.
+    2. Make deleting workbenches delete them from memory and file
+
     5. Color of signs are not staying
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
-
     @Override
     public void onEnable(){
         instance = this;
@@ -38,10 +45,32 @@ public class Rustified extends JavaPlugin {
         setup();
         Bukkit.getOnlinePlayers().forEach(Rustified::getPlayerObjectFor);
         WorkbenchLocations.getWorkBenchLocations();
-
+        runBarRemovalTask();
 
     }
 
+
+     void runBarRemovalTask(){
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                List<BossBarMoveEvent.BarLocationWrapper> removal = new ArrayList<>();
+                if (!wrappers.isEmpty()) {
+                    for (BossBarMoveEvent.BarLocationWrapper wrapper : wrappers) {
+                        UUID uuid = wrapper.getUuid();
+                        Validate.notNull(Bukkit.getPlayer(uuid), "Moving player is null!");
+                        Player player = Bukkit.getPlayer(uuid);
+                        if (wrapper.getLoc().distance(player.getLocation()) > 10) {
+                            wrapper.getBar().removePlayer(player);
+                        }
+                        removal.add(wrapper);
+
+                    }
+                    wrappers.removeAll(removal);
+                }
+            }
+        }.runTaskTimer(this, 0, 20*60*3);
+    }
     // save each player
     @Override
     public void onDisable(){
@@ -53,6 +82,7 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new BreakWorkbenchEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchMenuClickEvent(), this);
         Bukkit.getPluginManager().registerEvents(new BossBarMoveEvent(this), this);

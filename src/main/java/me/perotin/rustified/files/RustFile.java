@@ -47,7 +47,7 @@ public class RustFile {
             configuration.save(file);
         } catch (IOException ex) {
             ex.printStackTrace();
-            ;
+
         }
     }
 
