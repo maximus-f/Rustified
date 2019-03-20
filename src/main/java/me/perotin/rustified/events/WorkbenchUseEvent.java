@@ -50,7 +50,6 @@ public class WorkbenchUseEvent implements Listener {
                             if(against.getRelative(face).getType() == against.getType()){
                                 // tis a workbench
 
-                                event.setCancelled(true);
                                // Inventory menu = Bukkit.createInventory(null, InventoryType.MERCHANT, "Workbench Level: "+ data.getLevelForWorkbench(against.getType()));
                                 Merchant menu = Bukkit.createMerchant("Workbench Level: " + data.getLevelForWorkbench(against.getType()));
 

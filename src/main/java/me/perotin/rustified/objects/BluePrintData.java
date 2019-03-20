@@ -10,6 +10,10 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /* Created by Perotin on 2/18/19 */
+
+/**
+ * Container class for static information
+ */
 public class BluePrintData {
 
     private static BluePrintData singleton;
@@ -22,6 +26,11 @@ public class BluePrintData {
      * the workbench
      */
     private Map<Integer, Map<Material, Material>> workbenchComponents;
+    /**
+     * @apiNote
+     * outer map is level of workbench, inner map key is material of item used as input for the workbench and inner inner value is the amount of items needed for input.
+     */
+    private Map<Integer, Map<Material, Integer>> workbenchInputs;
 
 
     private BluePrintData() {
@@ -31,6 +40,8 @@ public class BluePrintData {
         this.levelTwoBluePrints = convertStringListToBluePrint2(config.getStringList("level-2-items"));
         this.levelThreeBluePrints = convertStringListToBluePrint2(config.getStringList("level-3-items"));
         this.workbenchComponents = new HashMap<>();
+        this.workbenchInputs = new HashMap<>();
+        //TODO finish inputs loading from config
         try {
             for (int x = 1; x < 4; x++) {
                 Map<Material, Material> innerMap1 = new HashMap<>();

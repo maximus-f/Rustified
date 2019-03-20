@@ -33,7 +33,6 @@ public class BossBarMoveEvent implements Listener {
         for(Location location : locations.getSignLocations()){
             if(location.distance(mover.getLocation()) <= 10){
                 if(!isDuplicateBar(location, mover)) {
-                    Bukkit.broadcastMessage("123");
                     BossBar bar = Bukkit.createBossBar("Insert 20 Iron Ingots", BarColor.WHITE, BarStyle.SOLID);
                     bar.addPlayer(mover);
                     wrappers.add(new BarLocationWrapper(bar, location, mover.getUniqueId()));
@@ -76,9 +75,6 @@ public class BossBarMoveEvent implements Listener {
    private boolean isDuplicateBar(Location locOfBench, Player player){
         boolean isDuplicate = false;
         for(BarLocationWrapper wrapper : wrappers){
-            Bukkit.broadcastMessage("23");
-            if(player.getUniqueId().equals(wrapper.getUuid())) Bukkit.broadcastMessage("1");
-            if(wrapper.getLoc().equals(locOfBench)) Bukkit.broadcastMessage("@");
             if(wrapper.getLoc().equals(locOfBench) && player.getUniqueId().equals(wrapper.getUuid())) {
                 isDuplicate = true;
             }

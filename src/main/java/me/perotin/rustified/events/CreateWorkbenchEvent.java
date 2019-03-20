@@ -2,6 +2,7 @@ package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
 import me.perotin.rustified.objects.BluePrintData;
+import me.perotin.rustified.objects.Workbench;
 import me.perotin.rustified.objects.WorkbenchLocations;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -45,7 +46,7 @@ public class CreateWorkbenchEvent implements Listener {
                             levelOne.setLine(1, ChatColor.translateAlternateColorCodes('&', "&2&lWorkbench:"));
                             levelOne.setLine(2, "Lv."+level);
                             levelOne.update();
-                            locations.add(levelOne.getLocation());
+                            locations.add(new Workbench(levelOne.getLocation(), level));
                         }
                     }
                 }

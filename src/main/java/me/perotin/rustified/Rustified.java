@@ -32,6 +32,7 @@ public class Rustified extends JavaPlugin {
     2. Make deleting workbenches delete them from memory and file
 
     5. Color of signs are not staying
+    Boss Bar is buggy, also file deletion of workbenches
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
@@ -76,6 +77,7 @@ public class Rustified extends JavaPlugin {
     public void onDisable(){
         players.forEach(RustifiedPlayer::savePlayer);
         WorkbenchLocations.getWorkBenchLocations().writeToFile();
+
     }
 
     private void setup(){

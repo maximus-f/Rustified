@@ -2,6 +2,7 @@ package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
 import me.perotin.rustified.objects.WorkbenchLocations;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -25,7 +26,8 @@ public class BreakWorkbenchEvent implements Listener {
         Block broken = event.getBlock();
         if(broken.getState().getType() == Material.SIGN && locations.getSignLocations().contains(broken.getLocation())){
             // its a workbench
-            locations.remove(broken.getLocation());
+            Bukkit.broadcastMessage("here");
+            locations.remove(locations.getWorkbenchWith(broken.getLocation()));
         }
     }
 }
