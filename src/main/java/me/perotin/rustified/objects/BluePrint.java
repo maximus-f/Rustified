@@ -38,6 +38,11 @@ public class BluePrint implements ConfigurationSerializable  {
         item.setItemMeta(meta);
     }
 
+
+    public ItemStack getItem() {
+        return item;
+    }
+
     /**
      * @return material for blueprint
      */

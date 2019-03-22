@@ -2,6 +2,8 @@ package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
 import me.perotin.rustified.objects.BluePrintData;
+import me.perotin.rustified.objects.Workbench;
+import me.perotin.rustified.objects.WorkbenchLocations;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -17,8 +19,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.Merchant;
+import org.bukkit.inventory.MerchantRecipe;
 
 /* Created by Perotin on 2/18/19 */
 public class WorkbenchUseEvent implements Listener {
@@ -51,9 +53,12 @@ public class WorkbenchUseEvent implements Listener {
                                 // tis a workbench
 
                                // Inventory menu = Bukkit.createInventory(null, InventoryType.MERCHANT, "Workbench Level: "+ data.getLevelForWorkbench(against.getType()));
+
+                                Workbench bench = WorkbenchLocations.getWorkBenchLocations().getWorkbenchWith(s.getLocation());
                                 Merchant menu = Bukkit.createMerchant("Workbench Level: " + data.getLevelForWorkbench(against.getType()));
+                                WorkbenchMenuClickEvent.inWorkbenchMenu.put(clicker.getUniqueId(), bench);
 
-
+                                WorkbenchMenuClickEvent.inMenu.put(clicker.getUniqueId(), menu);
                                 clicker.openMerchant(menu, false);
 
                             }

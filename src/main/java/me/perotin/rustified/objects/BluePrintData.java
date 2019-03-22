@@ -30,7 +30,9 @@ public class BluePrintData {
      * @apiNote
      * outer map is level of workbench, inner map key is material of item used as input for the workbench and inner inner value is the amount of items needed for input.
      */
-    private Map<Integer, Map<Material, Integer>> workbenchInputs;
+    private Map<Integer, LinkedHashMap<Material, Integer>> workbenchInputs;
+
+
 
 
     private BluePrintData() {
@@ -40,19 +42,35 @@ public class BluePrintData {
         this.levelTwoBluePrints = convertStringListToBluePrint2(config.getStringList("level-2-items"));
         this.levelThreeBluePrints = convertStringListToBluePrint2(config.getStringList("level-3-items"));
         this.workbenchComponents = new HashMap<>();
-        this.workbenchInputs = new HashMap<>();
+        this.workbenchInputs = new LinkedHashMap<>();
+
         //TODO finish inputs loading from config
+
+
         try {
             for (int x = 1; x < 4; x++) {
                 Map<Material, Material> innerMap1 = new HashMap<>();
                 innerMap1.put(Material.valueOf(config.getString("level-" + x)), Material.valueOf(config.getString("level-" + x + "-item")));
                 workbenchComponents.put(x, innerMap1);
+
+                LinkedHashMap<Material, Integer> inputMapInner = new LinkedHashMap<>();
+                inputMapInner.put(Material.valueOf(config.getString("level-"+x+"-item")), config.getInt("level-"+x+"-amount"));
+                workbenchInputs.put(x, inputMapInner);
+
             }
         } catch (IllegalArgumentException ex) {
             Bukkit.getLogger().severe("Invalid material name for workbench materials! Check config.yml and make sure you are using the right names: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html");
             ex.printStackTrace();
             Bukkit.getLogger().severe("Shutting plugin down. Please fix the material names in your config.yml");
             Bukkit.getPluginManager().disablePlugin(Rustified.getInstance());
+        }
+
+        for(int x : workbenchInputs.keySet()){
+            Bukkit.broadcastMessage(x+"");
+            for(Material y : workbenchInputs.get(x).keySet()){
+                Bukkit.broadcastMessage(y.toString());
+                Bukkit.broadcastMessage(workbenchInputs.get(x).get(y)+"");
+            }
         }
 
     }
@@ -79,6 +97,13 @@ public class BluePrintData {
         return potentialBluePrints.get(random.nextInt(potentialBluePrints.size()));
 
 
+    }
+
+    /**
+     * @return map with level of workbench and map of material needed for input and value of how much of said item
+     */
+    public Map<Integer, LinkedHashMap<Material, Integer>> getWorkbenchInputs() {
+        return workbenchInputs;
     }
 
     /**
