@@ -1,6 +1,7 @@
 package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
+import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.Workbench;
 import me.perotin.rustified.objects.WorkbenchLocations;
@@ -9,18 +10,16 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.block.data.type.WallSign;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
+
+import java.util.Collections;
 
 /* Created by Perotin on 2/18/19 */
 public class WorkbenchUseEvent implements Listener {
@@ -56,9 +55,16 @@ public class WorkbenchUseEvent implements Listener {
 
                                 Workbench bench = WorkbenchLocations.getWorkBenchLocations().getWorkbenchWith(s.getLocation());
                                 Merchant menu = Bukkit.createMerchant("Workbench Level: " + data.getLevelForWorkbench(against.getType()));
-                                WorkbenchMenuClickEvent.inWorkbenchMenu.put(clicker.getUniqueId(), bench);
+                               // menu.setRecipes();
+                                BluePrint print = data.getRandomBluePrintFor(Rustified.getPlayerObjectFor(clicker), bench.getLevel());
 
-                                WorkbenchMenuClickEvent.inMenu.put(clicker.getUniqueId(), menu);
+                                Material material = data.getWorkbenchInputs().get(bench.getLevel()).keySet().iterator().next();
+                                int amount  = data.getWorkbenchInputs().get(bench.getLevel()).get(material);
+                                MerchantRecipe recipe =  new MerchantRecipe(print.getItemHidden(), 0, 999, false);
+
+                                recipe.addIngredient(new ItemStack(material, amount));
+                                menu.setRecipes(Collections.singletonList(recipe));
+
                                 clicker.openMerchant(menu, false);
 
                             }

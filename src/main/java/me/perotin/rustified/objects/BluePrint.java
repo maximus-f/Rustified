@@ -40,6 +40,23 @@ public class BluePrint implements ConfigurationSerializable  {
 
 
     public ItemStack getItem() {
+        ItemMeta meta = item.getItemMeta();
+        // will eventually make this more user friendly by parsing it or something
+        meta.setDisplayName(Messages.getMessage("blueprint-item", "$name$", type.name()));
+
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    /**
+     * @return item with hidden name for viewing in workbench
+     */
+    public ItemStack getItemHidden(){
+        ItemMeta meta = item.getItemMeta();
+        // will eventually make this more user friendly by parsing it or something
+        meta.setDisplayName(Messages.getMessage("blueprint-item", "$name$", "???"));
+
+        item.setItemMeta(meta);
         return item;
     }
 
