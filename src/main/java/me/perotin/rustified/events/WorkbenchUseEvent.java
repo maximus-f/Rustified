@@ -60,6 +60,7 @@ public class WorkbenchUseEvent implements Listener {
 
                                 Material material = data.getWorkbenchInputs().get(bench.getLevel()).keySet().iterator().next();
                                 int amount  = data.getWorkbenchInputs().get(bench.getLevel()).get(material);
+                                plugin.activeBluePrints.add(print);
                                 MerchantRecipe recipe =  new MerchantRecipe(print.getItemHidden(), 0, 999, false);
 
                                 recipe.addIngredient(new ItemStack(material, amount));

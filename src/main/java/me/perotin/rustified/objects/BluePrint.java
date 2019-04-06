@@ -1,6 +1,7 @@
 package me.perotin.rustified.objects;
 
 import me.perotin.rustified.utils.Messages;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.enchantments.Enchantment;
@@ -9,18 +10,17 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  *  Class that will be added to a RustifiedPlayer object that will be used in checking for blue print requirements.
  */
 /* Created by Perotin on 2/9/19 */
-public class BluePrint implements ConfigurationSerializable  {
+public class BluePrint   {
 
     private Material type;
     private ItemStack item;
+    private final UUID uuid;
 
 
     /**
@@ -28,16 +28,21 @@ public class BluePrint implements ConfigurationSerializable  {
      */
     public BluePrint(Material type) {
         this.type = type;
-        this.item = new ItemStack(Material.MAP);
+        this.item = new ItemStack(Material.PAPER);
+        this.uuid = UUID.randomUUID();
         ItemMeta meta = item.getItemMeta();
         // will eventually make this more user friendly by parsing it or something
         meta.setDisplayName(Messages.getMessage("blueprint-item", "$name$", type.name()));
-        meta.setLore(Collections.singletonList(Messages.getMessage("blueprint-lore")));
+        meta.setLore(Arrays.asList(Messages.getMessage("blueprint-lore"), ChatColor.GRAY + getUuid().toString()));
         item.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
     }
 
+
+    public UUID getUuid() {
+        return uuid;
+    }
 
     public ItemStack getItem() {
         ItemMeta meta = item.getItemMeta();
@@ -67,14 +72,6 @@ public class BluePrint implements ConfigurationSerializable  {
         return this.type;
     }
 
-    /**
-     *
-     * @param values
-     * @return Blue print from serialized map
-     */
-    public static BluePrint valueOf(Map<String, Object> values){
-        return new BluePrint(Material.valueOf((String) values.get("type")));
-    }
 
 
     /**
@@ -101,12 +98,7 @@ public class BluePrint implements ConfigurationSerializable  {
      *
      * @return serialized map
      */
-    @Override
-    public Map<String, Object> serialize() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("type", type.toString());
-        return map;
-    }
+
 
     //TODO get random blue print, might need to re-evaluate the ownership of this method
     public static BluePrint getRandomBluePrint(){

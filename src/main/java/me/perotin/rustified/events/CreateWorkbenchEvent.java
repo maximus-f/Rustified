@@ -47,6 +47,7 @@ public class CreateWorkbenchEvent implements Listener {
                             levelOne.setLine(2, "Lv."+level);
                             levelOne.update();
                             locations.add(new Workbench(levelOne.getLocation(), level));
+                            Bukkit.broadcastMessage(locations.getSignLocations().size()+"");
                         }
                     }
                 }

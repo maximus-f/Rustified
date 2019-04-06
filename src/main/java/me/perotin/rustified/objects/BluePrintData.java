@@ -65,13 +65,7 @@ public class BluePrintData {
             Bukkit.getPluginManager().disablePlugin(Rustified.getInstance());
         }
 
-        for(int x : workbenchInputs.keySet()){
-            Bukkit.broadcastMessage(x+"");
-            for(Material y : workbenchInputs.get(x).keySet()){
-                Bukkit.broadcastMessage(y.toString());
-                Bukkit.broadcastMessage(workbenchInputs.get(x).get(y)+"");
-            }
-        }
+
 
     }
 

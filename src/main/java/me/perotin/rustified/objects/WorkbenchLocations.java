@@ -30,17 +30,23 @@ public class WorkbenchLocations {
     private ArrayList<Workbench> loadLocations(){
         RustFile file = new RustFile(RustFile.RustFileType.WORKBENCHES);
         ArrayList<Workbench> loaded = new ArrayList<>();
-        for(String key : file.getConfiguration().getConfigurationSection("locations").getKeys(false)){
-            Map<String, Object> deserialized = new HashMap<>();
-            deserialized.put("world", file.getConfiguration().getString("locations."+key+".world"));
-            deserialized.put("x", file.getConfiguration().getString("locations."+key+".x"));
-            deserialized.put("y", file.getConfiguration().getString("locations."+key+".y"));
-            deserialized.put("z", file.getConfiguration().getString("locations."+key+".z"));
-            deserialized.put("pitch", file.getConfiguration().getString("locations."+key+".pitch"));
-            deserialized.put("yaw", file.getConfiguration().getString("locations."+key+".yaw"));
-            loaded.add(new Workbench(Location.deserialize(deserialized), file.getConfiguration().getInt("locations."+key+".level")));
 
-        }
+       // if(file.getConfiguration().getConfigurationSection("location") != null && !file.getConfiguration().getConfigurationSection("location").getKeys(false).isEmpty()) {
+            for (String key : file.getConfiguration().getConfigurationSection("locations").getKeys(false)) {
+                Map<String, Object> deserialized = new HashMap<>();
+                deserialized.put("world", file.getConfiguration().getString("locations." + key + ".world"));
+                deserialized.put("x", file.getConfiguration().getString("locations." + key + ".x"));
+                deserialized.put("y", file.getConfiguration().getString("locations." + key + ".y"));
+                deserialized.put("z", file.getConfiguration().getString("locations." + key + ".z"));
+                deserialized.put("pitch", file.getConfiguration().getString("locations." + key + ".pitch"));
+                deserialized.put("yaw", file.getConfiguration().getString("locations." + key + ".yaw"));
+                loaded.add(new Workbench(Location.deserialize(deserialized), file.getConfiguration().getInt("locations." + key + ".level")));
+                Bukkit.broadcastMessage(loaded.size()+"");
+
+
+            }
+       // }
+
         return loaded;
     }
 

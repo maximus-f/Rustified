@@ -26,7 +26,6 @@ public class BreakWorkbenchEvent implements Listener {
         Block broken = event.getBlock();
         if(broken.getState().getType() == Material.SIGN && locations.getSignLocations().contains(broken.getLocation())){
             // its a workbench
-            Bukkit.broadcastMessage("here");
             locations.remove(locations.getWorkbenchWith(broken.getLocation()));
         }
     }

@@ -69,7 +69,7 @@ public class RustFile {
         return ChatColor.translateAlternateColorCodes('&', configuration.getString(path));
     }
 
-    public void load() {
+    private void load() {
 
         File lang = null;
         InputStream defLangStream = null;
@@ -136,7 +136,7 @@ public class RustFile {
         }
     }
 
-    public File getFile(){
+    private File getFile(){
         return this.file;
     }
     public static void loadFiles(){
@@ -149,7 +149,9 @@ public class RustFile {
         RustFile workbench = new RustFile(WORKBENCHES);
         if(!workbench.getFile().exists()) {
             Rustified.getInstance().saveResource("workbenches.yml", false);
-        }
+            workbench.getConfiguration().createSection("locations");
+            workbench.save();
+         }
 
         for(RustFileType type : RustFileType.values()){
             new RustFile(type).load();

@@ -1,9 +1,12 @@
 package me.perotin.rustified.objects;
 
 import me.perotin.rustified.files.RustFile;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /* Created by Perotin on 2/9/19 */
 public class RustifiedPlayer {
@@ -75,9 +78,20 @@ public class RustifiedPlayer {
     public void savePlayer(){
         RustFile file = new RustFile(RustFile.RustFileType.PLAYERS);
         file.set(uuid.toString()+".name", name);
-        file.set(uuid.toString()+".blueprints", blueprints);
+        List<String> stringList = blueprints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
+        file.set(uuid.toString()+".blueprints", stringList);
         file.save();
 
+    }
+
+    public boolean isAbleToCraft(Material type){
+        List<Material> craftable = blueprints.stream().map(BluePrint::getMaterial).collect(Collectors.toList());
+        if(!craftable.isEmpty()){
+            for(Material mat : craftable){
+                if(mat.equals(type)) return true;
+            }
+        }
+        return false;
     }
 
 }

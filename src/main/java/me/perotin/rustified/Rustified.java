@@ -25,27 +25,29 @@ public class Rustified extends JavaPlugin {
 
     TODO
     2. Make deleting workbenches delete them from memory and file
-    3. Currently recipes work, display Name should be changed to actual thing or just said in a message
     4. Make a /blueprint command that lists blueprints and does other thigns
 
     5. Color of signs are not staying
     also file deletion of workbenches
 
 
-    3/30/19 Create a recipe for villager and go from there
+    4/06/19 Multiple errors, but if you ignore em the blue prints kinda work... Just do fine tuning and more testing
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
+    public  List<BluePrint> activeBluePrints;
     @Override
     public void onEnable(){
         instance = this;
         this.players = new HashSet<>();
-        BluePrintData.getSingleton();
-        RustFile.loadFiles();
+        activeBluePrints = new ArrayList<>();
         saveDefaultConfig();
+        RustFile.loadFiles();
         setup();
         Bukkit.getOnlinePlayers().forEach(Rustified::getPlayerObjectFor);
         WorkbenchLocations.getWorkBenchLocations();
+        BluePrintData.getSingleton();
+
 
     }
 
@@ -64,7 +66,7 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BreakWorkbenchEvent(this), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new EditTradeResultEvent(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new LearnBluePrintEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
 
     }
@@ -80,6 +82,14 @@ public class Rustified extends JavaPlugin {
         return instance;
     }
 
+    public BluePrint getBluePrint(UUID uuid){
+        for(BluePrint print : activeBluePrints){
+            if(print.getUuid().equals(uuid)){
+                return print;
+            }
+        }
+        return null;
+    }
     /**
      *
      * @param toFind
@@ -105,6 +115,7 @@ public class Rustified extends JavaPlugin {
             if(path.equals(uuid.toString())){
                 String name = file.getConfiguration().getString(path+".name");
                 ArrayList<BluePrint> bps = Rustified.getInstance().convertToBluePrintList(file.getConfiguration().getStringList(path +".blueprints"));
+                bps.forEach(bp -> Bukkit.broadcastMessage(bp.getItem().getType().name() + " for " + name));
                 RustifiedPlayer rustifiedPlayer = new RustifiedPlayer(uuid, name, bps);
                 Rustified.getInstance().addRustPlayer(rustifiedPlayer);
                 return rustifiedPlayer;

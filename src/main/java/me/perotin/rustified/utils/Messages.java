@@ -13,6 +13,7 @@ public class Messages {
     }
 
     public static String getMessage(String path, String placeholder, String newValue){
-        return ChatColor.translateAlternateColorCodes('&', file.getString(path).replace(placeholder, newValue));
+        String message = file.getString(path).replace(placeholder, newValue);
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 }

@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
 /* Created by Perotin on 2/12/19 */
@@ -23,19 +22,12 @@ public class CraftEvent implements Listener {
                 Recipe recipe = event.getRecipe();
                 RustifiedPlayer rustifiedPlayer = Rustified.getPlayerObjectFor(clicker);
                 BluePrintData data = BluePrintData.getSingleton();
-                if(data.isMaterialBluePrintable(recipe.getResult().getType()) && !rustifiedPlayer.getBlueprints().contains(new BluePrint(recipe.getResult().getType()))){
+                if(data.isMaterialBluePrintable(recipe.getResult().getType()) && !rustifiedPlayer.isAbleToCraft(recipe.getResult().getType())){
                     // cannot craft it!
 
                     event.setCancelled(true);
-                    clicker.closeInventory();
-                    clicker.getInventory().remove(event.getCurrentItem());
-                    if(event.getInventory().getContents().length != 0) {
-                        for (ItemStack item : event.getInventory().getContents()) {
-                            if(item != null) {
-                                clicker.getInventory().addItem(item);
-                            }
-                        }
-                    }
+                  //  clicker.getInventory().remove(event.getCurrentItem());
+
                     String msg = Messages.getMessage("crafting-denied");
                     int levelForItem = data.getLevelFor(new BluePrint(recipe.getResult().getType()));;
                     String required = Messages.getMessage("workbench-level-required").replace("$number$", levelForItem+"");
