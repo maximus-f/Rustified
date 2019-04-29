@@ -3,3 +3,7 @@ main: me.perotin.rustified.Rustified
 version: 1.0
 author: Perotin
 api-version: 1.13
+commands:
+   blueprint:
+      aliases: [blueprints, bp, bps]
+      description: Base command for blue prints

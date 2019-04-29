@@ -1,7 +1,12 @@
 package me.perotin.rustified.utils;
 
 import me.perotin.rustified.files.RustFile;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 /* Created by Perotin on 2/12/19 */
 public class Messages {
@@ -15,5 +20,21 @@ public class Messages {
     public static String getMessage(String path, String placeholder, String newValue){
         String message = file.getString(path).replace(placeholder, newValue);
         return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    public static void sendMessage(String path, Player sender){
+        sender.sendMessage(getMessage(path));
+    }
+
+
+    // Instead of just displaying 'click to copy' make it display somethng pertaining to the command
+    public static void sendMessageTextComponent(String path, Player sender){
+        String message = getMessage(path);
+        TextComponent textComponent = new TextComponent(message);
+        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.getMessage("click-to-copy")).create()));
+        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, message));
+        sender.spigot().sendMessage(textComponent);
+
+
     }
 }

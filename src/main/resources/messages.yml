@@ -7,3 +7,7 @@ blueprint-lore: "&7Right click to learn!"
 learned-blueprint: "&AYou have learned &3$name$&a!"
 crafting-denied: "&3You need to learn the blueprint to craft this item! / &3Unsure what this means? Type /blueprint help to learn more about blue prints!"
 workbench-level-required: "&3Workbench required: &fLevel $number$"
+
+no-permission: "&cNo permission to do this!"
+click-to-copy: "&bClick to copy!"
+click-msg-copy: "&bClick a command to copy it!"
