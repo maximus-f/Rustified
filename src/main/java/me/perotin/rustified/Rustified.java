@@ -67,6 +67,8 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BreakWorkbenchEvent(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CancelInfoClick(), this);
+
         Bukkit.getServer().getPluginManager().registerEvents(new LearnBluePrintEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
 

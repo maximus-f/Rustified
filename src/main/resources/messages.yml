@@ -1,7 +1,7 @@
 # Welcome to the Rustified messages file.
 # If you have any questions or concerns, message me on Spigot @ Perotin or discord (Perotin#3447)
 
-
+prefix: "&7&lRustified"
 blueprint-item: "&3Blue Print: &b$name$"
 blueprint-lore: "&7Right click to learn!"
 learned-blueprint: "&AYou have learned &3$name$&a!"
@@ -11,3 +11,22 @@ workbench-level-required: "&3Workbench required: &fLevel $number$"
 no-permission: "&cNo permission to do this!"
 click-to-copy: "&bClick to copy!"
 click-msg-copy: "&bClick a command to copy it!"
+blueprint-help: "&a/blueprint help - &7Explains what Rustified is"
+blueprint-help-message:
+ - "$prefix$ &3Blueprints are an additional requirement for being able to craft an item."
+ - "&3Say you have 2 diamonds and a stick, normally you'd be able to craft a diamond sword, but first you must have &olearned&3 the blueprint in order to do this."
+ - "&3You can attain blueprints by creating a workbench and generating blueprints. Do '&a/blueprint info&3' for the specifics."
+blueprint-list: "&a/blueprint list - &7Lists all blueprints you have"
+blueprint-list-message: "$prefix$ &bBlueprint&f(&b$amount$&f): $list$"
+
+
+# Messages used for /blueprint info
+level-bench: "&eLevel:&f $level$"
+level-bench-lore: "&eMaterial Type:&f $type$"
+level-input: "&eInput Type: &f$type$"
+level-input-amount: "&eInput Amount: &f$amount$"
+level-items-to-bp: "&ePotential Items: "
+how-to-build: "&eHow to build a workbench?"
+how-to-build-lore:
+   - "&7Building a workbench is simple. First, put 3 blocks of the type listed to the right in a horizontal row."
+   - "&7Then, place a sign on on the middle block, and you're done!"

@@ -1,9 +1,14 @@
 package me.perotin.rustified.objects;
 
 import me.perotin.rustified.Rustified;
+import me.perotin.rustified.utils.ItemBuilder;
+import me.perotin.rustified.utils.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -27,12 +32,9 @@ public class BluePrintData {
      */
     private Map<Integer, Map<Material, Material>> workbenchComponents;
     /**
-     * @apiNote
-     * outer map is level of workbench, inner map key is material of item used as input for the workbench and inner inner value is the amount of items needed for input.
+     * @apiNote outer map is level of workbench, inner map key is material of item used as input for the workbench and inner inner value is the amount of items needed for input.
      */
     private Map<Integer, LinkedHashMap<Material, Integer>> workbenchInputs;
-
-
 
 
     private BluePrintData() {
@@ -54,7 +56,7 @@ public class BluePrintData {
                 workbenchComponents.put(x, innerMap1);
 
                 LinkedHashMap<Material, Integer> inputMapInner = new LinkedHashMap<>();
-                inputMapInner.put(Material.valueOf(config.getString("level-"+x+"-item")), config.getInt("level-"+x+"-amount"));
+                inputMapInner.put(Material.valueOf(config.getString("level-" + x + "-item")), config.getInt("level-" + x + "-amount"));
                 workbenchInputs.put(x, inputMapInner);
 
             }
@@ -64,7 +66,6 @@ public class BluePrintData {
             Bukkit.getLogger().severe("Shutting plugin down. Please fix the material names in your config.yml");
             Bukkit.getPluginManager().disablePlugin(Rustified.getInstance());
         }
-
 
 
     }
@@ -78,15 +79,17 @@ public class BluePrintData {
     public BluePrint getRandomBluePrintFor(RustifiedPlayer player, int levelOfWorkbench) {
         List<BluePrint> potentialBluePrints = getBluePrintForLevel(levelOfWorkbench);
         // remove maps that player already has, look into making this code prettier
+        List<BluePrint> toRemove = new ArrayList<>();
         if (!player.getBlueprints().isEmpty()) {
             for (BluePrint map : player.getBlueprints()) {
                 for (BluePrint map2 : potentialBluePrints) {
                     if (map.equals(map2)) {
-                        potentialBluePrints.remove(map2);
+                        toRemove.add(map);
                     }
                 }
             }
         }
+        potentialBluePrints.removeAll(toRemove);
         Random random = new Random();
         return potentialBluePrints.get(random.nextInt(potentialBluePrints.size()));
 
@@ -115,6 +118,84 @@ public class BluePrintData {
             default:
                 return null;
         }
+
+    }
+
+    private String bluePrintsForDisplay(int level){
+        if(level == 1){
+            List<String> transform = levelOneBluePrints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
+            String display = "";
+
+            for(String s : transform){
+                if(!display.equalsIgnoreCase("")) {
+                    display += "\n- " + ChatColor.YELLOW + s;
+                } else {
+                    display += "- " + ChatColor.YELLOW + s;
+
+                }
+            }
+            return display;
+        } else if(level == 2){
+            List<String> transform = levelTwoBluePrints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
+            String display = "";
+
+            for(String s : transform){
+                if(!display.equalsIgnoreCase("")) {
+                    display += "\n- " + ChatColor.YELLOW + s;
+                } else {
+                    display += "- " + ChatColor.YELLOW + s;
+
+                }
+            }
+            return display;
+        } else if(level == 3){
+            List<String> transform = levelThreeBluePrints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
+            String display = "";
+
+            for(String s : transform){
+                if(!display.equalsIgnoreCase("")) {
+                    display += "\n- " + ChatColor.YELLOW + s;
+                } else {
+                    display += "- " + ChatColor.YELLOW + s;
+
+                }
+            }
+            return display;
+        }
+        return "";
+    }
+
+
+    public void showInfoInventory(Player toShow) {
+        Rustified plugin = Rustified.getInstance();
+        FileConfiguration config = plugin.getConfig();
+        Inventory gui = Bukkit.createInventory(null, 27, plugin.getConfig().getString("info-gui-name"));
+        String levelBench = Messages.getMessage("level-bench");
+        String levelBenchLore = Messages.getMessage("level-bench-lore");
+        String levelInput = Messages.getMessage("level-input");
+        String levelInputAmount = Messages.getMessage("level-input-amount");
+        String levelItemsBp = Messages.getMessage("level-items-to-bp");
+        gui.setItem(1, new ItemBuilder(Material.CHEST_MINECART).setName(Messages.getMessage("how-to-build")).setLore(Messages.getStringLoreColorized("how-to-build-lore")).toItemStack());
+        for (int x = 1; x < 4; x++) {
+            Material benchType = Material.valueOf(config.getString("level-" + x));
+            Material benchInputType = Material.valueOf(config.getString("level-" + x + "-item"));
+            int benchInputAmount = config.getInt("level-" + x + "-amount");
+            if (x == 1) {
+                gui.setItem(3, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
+                gui.setItem(11, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
+                gui.setItem(19, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+            } else if (x == 2) {
+                gui.setItem(4, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
+                gui.setItem(12, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
+                gui.setItem(20, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+            } else {
+                gui.setItem(5, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
+                gui.setItem(13, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
+                gui.setItem(21, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+            }
+        }
+        toShow.openInventory(gui);
+
 
     }
 
@@ -222,16 +303,15 @@ public class BluePrintData {
     private ArrayList<BluePrint> convertStringListToBluePrint2(List<String> convert) {
         ArrayList<BluePrint> bluePrintArrayList = new ArrayList<>();
         for (String s : convert) {
-            if(Material.getMaterial(s) != null){
+            if (Material.getMaterial(s) != null) {
                 bluePrintArrayList.add(new BluePrint(Material.getMaterial(s)));
             } else {
                 Bukkit.getLogger().log(Level.WARNING, "Invalid material name '" + s + "' entered in Rustified/config.yml! To see proper names visit https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html\n" +
-                      "level");
+                        "level");
             }
         }
         return bluePrintArrayList;
     }
-
 
 
     /**

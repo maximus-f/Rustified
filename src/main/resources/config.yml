@@ -58,3 +58,6 @@ level-3-items:
    - DIAMOND_SHOVEL
    - DIAMOND_HOE
    - ENCHANTED_GOLDEN_APPLE
+
+
+info-gui-name: "Blueprint Information"

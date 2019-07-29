@@ -5,6 +5,7 @@ import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
 import me.perotin.rustified.utils.Messages;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,7 @@ public class CraftEvent implements Listener {
                 BluePrintData data = BluePrintData.getSingleton();
                 if(data.isMaterialBluePrintable(recipe.getResult().getType()) && !rustifiedPlayer.isAbleToCraft(recipe.getResult().getType())){
                     // cannot craft it!
+
 
                     event.setCancelled(true);
                   //  clicker.getInventory().remove(event.getCurrentItem());
