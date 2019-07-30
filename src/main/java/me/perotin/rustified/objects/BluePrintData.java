@@ -121,48 +121,27 @@ public class BluePrintData {
 
     }
 
-    private String bluePrintsForDisplay(int level){
+
+    private List<String> bluePrintsForDisplay(int level){
+        List<String> display = new ArrayList<>();
         if(level == 1){
-            List<String> transform = levelOneBluePrints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
-            String display = "";
-
-            for(String s : transform){
-                if(!display.equalsIgnoreCase("")) {
-                    display += "\n- " + ChatColor.YELLOW + s;
-                } else {
-                    display += "- " + ChatColor.YELLOW + s;
-
-                }
+            for(BluePrint print : levelOneBluePrints){
+                display.add(ChatColor.WHITE+"- " + ChatColor.YELLOW + print.getMaterial().toString());
             }
             return display;
-        } else if(level == 2){
-            List<String> transform = levelTwoBluePrints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
-            String display = "";
-
-            for(String s : transform){
-                if(!display.equalsIgnoreCase("")) {
-                    display += "\n- " + ChatColor.YELLOW + s;
-                } else {
-                    display += "- " + ChatColor.YELLOW + s;
-
-                }
+        } else if (level == 2){
+            for(BluePrint print : levelTwoBluePrints){
+                display.add(ChatColor.WHITE+"- " + ChatColor.YELLOW + print.getMaterial().toString());
             }
             return display;
         } else if(level == 3){
-            List<String> transform = levelThreeBluePrints.stream().map(bp -> bp.getMaterial().toString()).collect(Collectors.toList());
-            String display = "";
-
-            for(String s : transform){
-                if(!display.equalsIgnoreCase("")) {
-                    display += "\n- " + ChatColor.YELLOW + s;
-                } else {
-                    display += "- " + ChatColor.YELLOW + s;
-
-                }
+            for(BluePrint print : levelThreeBluePrints){
+                display.add(ChatColor.WHITE+"- " + ChatColor.YELLOW + print.getMaterial().toString());
             }
             return display;
+        } else {
+            return display;
         }
-        return "";
     }
 
 
@@ -175,23 +154,23 @@ public class BluePrintData {
         String levelInput = Messages.getMessage("level-input");
         String levelInputAmount = Messages.getMessage("level-input-amount");
         String levelItemsBp = Messages.getMessage("level-items-to-bp");
-        gui.setItem(1, new ItemBuilder(Material.CHEST_MINECART).setName(Messages.getMessage("how-to-build")).setLore(Messages.getStringLoreColorized("how-to-build-lore")).toItemStack());
+        gui.setItem(0, new ItemBuilder(Material.CHEST_MINECART).setName(Messages.getMessage("how-to-build")).setLore(Messages.getStringLoreColorized("how-to-build-lore")).toItemStack());
         for (int x = 1; x < 4; x++) {
             Material benchType = Material.valueOf(config.getString("level-" + x));
             Material benchInputType = Material.valueOf(config.getString("level-" + x + "-item"));
             int benchInputAmount = config.getInt("level-" + x + "-amount");
             if (x == 1) {
                 gui.setItem(3, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
-                gui.setItem(11, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
-                gui.setItem(19, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+                gui.setItem(12, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
+                gui.setItem(21, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
             } else if (x == 2) {
                 gui.setItem(4, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
-                gui.setItem(12, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
-                gui.setItem(20, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+                gui.setItem(13, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
+                gui.setItem(22, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
             } else {
                 gui.setItem(5, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
-                gui.setItem(13, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
-                gui.setItem(21, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+                gui.setItem(14, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
+                gui.setItem(23, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
             }
         }
         toShow.openInventory(gui);

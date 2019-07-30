@@ -41,7 +41,6 @@ public class WorkbenchLocations {
                 deserialized.put("pitch", file.getConfiguration().getString("locations." + key + ".pitch"));
                 deserialized.put("yaw", file.getConfiguration().getString("locations." + key + ".yaw"));
                 loaded.add(new Workbench(Location.deserialize(deserialized), file.getConfiguration().getInt("locations." + key + ".level")));
-                Bukkit.broadcastMessage(loaded.size()+"");
 
 
             }

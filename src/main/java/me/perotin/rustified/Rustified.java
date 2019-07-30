@@ -120,7 +120,6 @@ public class Rustified extends JavaPlugin {
             if(path.equals(uuid.toString())){
                 String name = file.getConfiguration().getString(path+".name");
                 ArrayList<BluePrint> bps = Rustified.getInstance().convertToBluePrintList(file.getConfiguration().getStringList(path +".blueprints"));
-                bps.forEach(bp -> Bukkit.broadcastMessage(bp.getItem().getType().name() + " for " + name));
                 RustifiedPlayer rustifiedPlayer = new RustifiedPlayer(uuid, name, bps);
                 Rustified.getInstance().addRustPlayer(rustifiedPlayer);
                 return rustifiedPlayer;

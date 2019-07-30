@@ -13,7 +13,7 @@ click-to-copy: "&bClick to copy!"
 click-msg-copy: "&bClick a command to copy it!"
 blueprint-help: "&a/blueprint help - &7Explains what Rustified is"
 blueprint-help-message:
- - "$prefix$ &3Blueprints are an additional requirement for being able to craft an item."
+ - "&3Blueprints are an additional requirement for being able to craft an item."
  - "&3Say you have 2 diamonds and a stick, normally you'd be able to craft a diamond sword, but first you must have &olearned&3 the blueprint in order to do this."
  - "&3You can attain blueprints by creating a workbench and generating blueprints. Do '&a/blueprint info&3' for the specifics."
 blueprint-list: "&a/blueprint list - &7Lists all blueprints you have"
