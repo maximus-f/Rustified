@@ -28,5 +28,6 @@ level-input-amount: "&eInput Amount: &f$amount$"
 level-items-to-bp: "&ePotential Items: "
 how-to-build: "&eHow to build a workbench?"
 how-to-build-lore:
-   - "&7Building a workbench is simple. First, put 3 blocks of the type listed to the right in a horizontal row."
+   - "&7Building a workbench is simple. First, put 2 blocks of the type listed to the right in a horizontal row."
    - "&7Then, place a sign on on the middle block, and you're done!"
+   - "&7Blueprints you own are shown in &agreen&7, and ones you can unlock are in &eyellow&7."

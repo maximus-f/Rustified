@@ -122,22 +122,33 @@ public class BluePrintData {
     }
 
 
-    private List<String> bluePrintsForDisplay(int level){
+    private List<String> bluePrintsForDisplay(int level, RustifiedPlayer player){
         List<String> display = new ArrayList<>();
+        List<Material> printsObtained = player.getBlueprints().stream().map(BluePrint::getMaterial).collect(Collectors.toList());
         if(level == 1){
             for(BluePrint print : levelOneBluePrints){
-                display.add(ChatColor.WHITE+"- " + ChatColor.YELLOW + print.getMaterial().toString());
+                if(printsObtained.contains(print.getMaterial())) {
+                    display.add(ChatColor.WHITE + "- " + ChatColor.GREEN + print.getMaterial().toString());
+                } else {
+                    display.add(ChatColor.WHITE + "- " + ChatColor.YELLOW + print.getMaterial().toString());
+                }
             }
             return display;
         } else if (level == 2){
             for(BluePrint print : levelTwoBluePrints){
-                display.add(ChatColor.WHITE+"- " + ChatColor.YELLOW + print.getMaterial().toString());
-            }
+                if(printsObtained.contains(print.getMaterial())) {
+                    display.add(ChatColor.WHITE + "- " + ChatColor.GREEN + print.getMaterial().toString());
+                } else {
+                    display.add(ChatColor.WHITE + "- " + ChatColor.YELLOW + print.getMaterial().toString());
+                }            }
             return display;
         } else if(level == 3){
             for(BluePrint print : levelThreeBluePrints){
-                display.add(ChatColor.WHITE+"- " + ChatColor.YELLOW + print.getMaterial().toString());
-            }
+                if(printsObtained.contains(print.getMaterial())) {
+                    display.add(ChatColor.WHITE + "- " + ChatColor.GREEN + print.getMaterial().toString());
+                } else {
+                    display.add(ChatColor.WHITE + "- " + ChatColor.YELLOW + print.getMaterial().toString());
+                }            }
             return display;
         } else {
             return display;
@@ -147,6 +158,7 @@ public class BluePrintData {
 
     public void showInfoInventory(Player toShow) {
         Rustified plugin = Rustified.getInstance();
+        RustifiedPlayer rustifiedPlayer = Rustified.getPlayerObjectFor(toShow);
         FileConfiguration config = plugin.getConfig();
         Inventory gui = Bukkit.createInventory(null, 27, plugin.getConfig().getString("info-gui-name"));
         String levelBench = Messages.getMessage("level-bench");
@@ -162,15 +174,15 @@ public class BluePrintData {
             if (x == 1) {
                 gui.setItem(3, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
                 gui.setItem(12, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
-                gui.setItem(21, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+                gui.setItem(21, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x, rustifiedPlayer)).toItemStack());
             } else if (x == 2) {
                 gui.setItem(4, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
                 gui.setItem(13, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
-                gui.setItem(22, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+                gui.setItem(22, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x, rustifiedPlayer)).toItemStack());
             } else {
                 gui.setItem(5, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
                 gui.setItem(14, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
-                gui.setItem(23, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x)).toItemStack());
+                gui.setItem(23, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x, rustifiedPlayer)).toItemStack());
             }
         }
         toShow.openInventory(gui);

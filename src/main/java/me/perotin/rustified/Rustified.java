@@ -1,6 +1,7 @@
 package me.perotin.rustified;
 
 import me.perotin.rustified.commands.BluePrintCommand;
+import me.perotin.rustified.commands.ResearchCommand;
 import me.perotin.rustified.events.*;
 import me.perotin.rustified.files.RustFile;
 import me.perotin.rustified.objects.BluePrint;
@@ -73,6 +74,7 @@ public class Rustified extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);
 
         getCommand("blueprint").setExecutor(new BluePrintCommand(this));
+        getCommand("research").setExecutor(new ResearchCommand(this));
 
     }
 

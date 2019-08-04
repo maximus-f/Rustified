@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class Messages {
         return basic.stream().map(s -> ChatColor.translateAlternateColorCodes('&', s)).collect(Collectors.toList());
     }
 
-    public static void sendMessage(String path, Player sender){
+    public static void sendMessage(String path, CommandSender sender){
         sender.sendMessage(getMessage(path));
     }
 
