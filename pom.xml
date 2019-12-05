@@ -11,13 +11,21 @@
 
     <groupId>me.perotin</groupId>
     <artifactId>Rustified</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1</version>
+
+    <repositories>
+        <!-- This adds the Spigot Maven repository to the build -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -59,7 +67,7 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>2.4</version>
                     <configuration>
-                         <outputDirectory>/Users/Home/Desktop/network/server2/plugins</outputDirectory>
+                         <outputDirectory>/Users/Home/Desktop/network/1.14/plugins</outputDirectory>
                     </configuration>
                 </plugin>
 

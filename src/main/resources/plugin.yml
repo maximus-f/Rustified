@@ -1,6 +1,6 @@
 name: Rustified
 main: me.perotin.rustified.Rustified
-version: 1.1
+version: ${project.version}
 author: Perotin
 api-version: 1.13
 commands:

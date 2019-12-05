@@ -27,7 +27,7 @@ public class CreateWorkbenchEvent implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlaceSign(BlockPlaceEvent event) {
         Block sign = event.getBlock();
-        if (sign.getType() == Material.WALL_SIGN) {
+        if (sign.getType().toString().contains("SIGN")) {
             Block against = event.getBlockAgainst();
             BluePrintData data = BluePrintData.getSingleton();
             WorkbenchLocations locations = WorkbenchLocations.getWorkBenchLocations();

@@ -30,7 +30,6 @@ public class LearnBluePrintEvent implements Listener {
         Player clicker = event.getPlayer();
         if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR){
             ItemStack holding = clicker.getInventory().getItemInMainHand();
-
             if(holding != null && holding.getType() != Material.AIR) {
                 if(holding.getType() == Material.PAPER && holding.hasItemMeta()){
 
@@ -44,11 +43,16 @@ public class LearnBluePrintEvent implements Listener {
                                 event.setCancelled(true);
 
                                 RustifiedPlayer player = Rustified.getPlayerObjectFor(clicker);
-                                clicker.getInventory().remove(holding);
-                                player.addBlueprint(print);
-                                clicker.sendMessage(Messages.getMessage("learned-blueprint")
-                                .replace("$name$", print.getMaterial().toString()));
-                                plugin.activeBluePrints.remove(print);
+                                if(!player.isAbleToCraft(print.getMaterial())) {
+                                    ResearchClickEvent.consumeItem(clicker, 1, Material.PAPER);
+                                    player.addBlueprint(print);
+                                    clicker.sendMessage(Messages.getMessage("learned-blueprint")
+                                            .replace("$name$", print.getMaterial().toString()));
+                                    plugin.activeBluePrints.remove(print);
+                                } else {
+                                    // already learnt
+                                    Messages.sendMessage("already-learned", clicker);
+                                }
 
                             }
                         }

@@ -34,6 +34,8 @@ public class Rustified extends JavaPlugin {
 
 
     4/06/19 Multiple errors, but if you ignore em the blue prints kinda work... Just do fine tuning and more testing
+
+    12/05/19 - Yeeeah big jump lol... doing 1.14 support and working so far, for some reason when I took two bp's out the second one didn't work tho
      */
     private static Rustified instance;
     private HashSet<RustifiedPlayer> players;
@@ -69,6 +71,9 @@ public class Rustified extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new CreateWorkbenchEvent(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new BreakWorkbenchEvent(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new CancelInfoClick(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ResearchClickEvent(this), this);
+
+
 
         Bukkit.getServer().getPluginManager().registerEvents(new LearnBluePrintEvent(this), this);
         Bukkit.getPluginManager().registerEvents(new WorkbenchUseEvent(this), this);

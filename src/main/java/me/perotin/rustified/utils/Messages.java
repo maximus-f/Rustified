@@ -18,7 +18,9 @@ public class Messages {
     private Messages(){}
 
     public static String getMessage(String path){
-        return ChatColor.translateAlternateColorCodes('&', file.getString(path));
+        String msg =  ChatColor.translateAlternateColorCodes('&', file.getString(path));
+        if(msg.contains("$prefix$")) msg = msg.replace("$prefix$", ChatColor.translateAlternateColorCodes('&', file.getString("prefix")));
+        return msg;
     }
 
     public static String getMessage(String path, String placeholder, String newValue){
@@ -32,6 +34,7 @@ public class Messages {
     }
 
     public static void sendMessage(String path, CommandSender sender){
+
         sender.sendMessage(getMessage(path));
     }
 

@@ -50,8 +50,15 @@ public class WorkbenchLocations {
     }
 
     public Workbench getWorkbenchWith(Location location) {
-        if(workbenches.stream().filter(workbench -> workbench.getLocation().equals(location)).collect(Collectors.toList()).get(0) != null){
-            return workbenches.stream().filter(workbench -> workbench.getLocation().equals(location)).collect(Collectors.toList()).get(0);
+        if(!workbenches.isEmpty()) {
+            try {
+                if (workbenches.stream().filter(workbench -> workbench.getLocation().equals(location)).collect(Collectors.toList()).get(0) != null) {
+                    return workbenches.stream().filter(workbench -> workbench.getLocation().equals(location)).collect(Collectors.toList()).get(0);
+                }
+            } catch (IndexOutOfBoundsException ignored){
+                // ignore for now
+
+            }
         }
         return null;
     }

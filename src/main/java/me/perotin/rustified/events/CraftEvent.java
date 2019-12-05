@@ -31,7 +31,7 @@ public class CraftEvent implements Listener {
                   //  clicker.getInventory().remove(event.getCurrentItem());
 
                     String msg = Messages.getMessage("crafting-denied");
-                    int levelForItem = data.getLevelFor(new BluePrint(recipe.getResult().getType()));;
+                    int levelForItem = data.getLevelFor(recipe.getResult().getType());
                     String required = Messages.getMessage("workbench-level-required").replace("$number$", levelForItem+"");
                     if(msg.contains("/")){
                         String first = msg.split("/")[0];

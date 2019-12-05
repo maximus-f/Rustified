@@ -24,7 +24,7 @@ public class BreakWorkbenchEvent implements Listener {
         Player destroyer = event.getPlayer();
         WorkbenchLocations locations = WorkbenchLocations.getWorkBenchLocations();
         Block broken = event.getBlock();
-        if(broken.getState().getType() == Material.SIGN && locations.getSignLocations().contains(broken.getLocation())){
+        if(broken.getState().getType().toString().contains("SIGN") && locations.getSignLocations().contains(broken.getLocation())){
             // its a workbench
             locations.remove(locations.getWorkbenchWith(broken.getLocation()));
         }

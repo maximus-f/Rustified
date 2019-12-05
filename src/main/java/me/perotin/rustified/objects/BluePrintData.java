@@ -78,7 +78,7 @@ public class BluePrintData {
      */
     public BluePrint getRandomBluePrintFor(RustifiedPlayer player, int levelOfWorkbench) {
         List<BluePrint> potentialBluePrints = getBluePrintForLevel(levelOfWorkbench);
-        // remove maps that player already has, look into making this code prettier
+        // sort already-owned blueprints and remove them to retrieve a unique, new blueprint
         List<BluePrint> toRemove = new ArrayList<>();
         if (!player.getBlueprints().isEmpty()) {
             for (BluePrint map : player.getBlueprints()) {
@@ -172,15 +172,15 @@ public class BluePrintData {
             Material benchInputType = Material.valueOf(config.getString("level-" + x + "-item"));
             int benchInputAmount = config.getInt("level-" + x + "-amount");
             if (x == 1) {
-                gui.setItem(3, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
+                gui.setItem(3, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchType.toString())).toItemStack());
                 gui.setItem(12, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
                 gui.setItem(21, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x, rustifiedPlayer)).toItemStack());
             } else if (x == 2) {
-                gui.setItem(4, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
+                gui.setItem(4, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchType.toString())).toItemStack());
                 gui.setItem(13, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
                 gui.setItem(22, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x, rustifiedPlayer)).toItemStack());
             } else {
-                gui.setItem(5, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchInputType.toString())).toItemStack());
+                gui.setItem(5, new ItemBuilder(benchType).setName(levelBench.replace("$level$", x+"")).setLore(levelBenchLore.replace("$type$", benchType.toString())).toItemStack());
                 gui.setItem(14, new ItemBuilder(benchInputType).setName(levelInput.replace("$type$", benchInputType.toString())).setLore(levelInputAmount.replace("$amount$", benchInputAmount+"")).toItemStack() );
                 gui.setItem(23, new ItemBuilder(Material.CRAFTING_TABLE).setName(levelItemsBp).setLore(bluePrintsForDisplay(x, rustifiedPlayer)).toItemStack());
             }
@@ -236,12 +236,12 @@ public class BluePrintData {
      * @param bp
      * @return
      */
-    public int getLevelFor(BluePrint bp) {
-        if (levelThreeBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial()))
+    public int getLevelFor(Material bp) {
+        if (levelThreeBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp))
             return 3;
-        if (levelTwoBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial()))
+        if (levelTwoBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp))
             return 2;
-        if (levelOneBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp.getMaterial()))
+        if (levelOneBluePrints.stream().map(BluePrint::getMaterial).collect(Collectors.toList()).contains(bp))
             return 1;
         return 0;
     }
@@ -314,4 +314,6 @@ public class BluePrintData {
         }
         return singleton;
     }
+
+
 }

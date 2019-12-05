@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,43 +39,50 @@ public class WorkbenchUseEvent implements Listener {
         Player clicker = event.getPlayer();
         if(event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK){
             Block block = event.getClickedBlock();
-            if(block != null){
-                if(block.getType() == Material.WALL_SIGN || block.getType() == Material.SIGN) {
-                    Sign s = (Sign) block.getState();
-                    org.bukkit.material.Sign sd = (org.bukkit.material.Sign) s.getData();
-                    Block against = block.getRelative(sd.getAttachedFace());
-                    BluePrintData data = BluePrintData.getSingleton();
-                    if (data.getWorkbenchBlocks().contains(against.getType())){
-                        // potential workbench
+            if(block != null && block.getState() instanceof Sign){
+                    BlockData blockData = block.getBlockData();
+                    if(blockData instanceof Directional){
+                        Directional directional = (Directional) blockData;
+                        Block against = block.getRelative(directional.getFacing().getOppositeFace());
+                        BluePrintData data = BluePrintData.getSingleton();
+                        if (data.getWorkbenchBlocks().contains(against.getType())){
+                            // potential workbench
 
-                        BlockFace[] possibleLocations = {BlockFace.DOWN, BlockFace.EAST, BlockFace.NORTH, BlockFace.WEST, BlockFace.UP, BlockFace.SOUTH};
-                        for(BlockFace face : possibleLocations){
-                            if(against.getRelative(face).getType() == against.getType()){
-                                // tis a workbench
+                            BlockFace[] possibleLocations = {BlockFace.DOWN, BlockFace.EAST, BlockFace.NORTH, BlockFace.WEST, BlockFace.UP, BlockFace.SOUTH};
+                            for(BlockFace face : possibleLocations){
+                                if(against.getRelative(face).getType() == against.getType()){
+                                    // tis a workbench
 
-                               // Inventory menu = Bukkit.createInventory(null, InventoryType.MERCHANT, "Workbench Level: "+ data.getLevelForWorkbench(against.getType()));
+                                    // Inventory menu = Bukkit.createInventory(null, InventoryType.MERCHANT, "Workbench Level: "+ data.getLevelForWorkbench(against.getType()));
 
-                                Workbench bench = WorkbenchLocations.getWorkBenchLocations().getWorkbenchWith(s.getLocation());
-                                Merchant menu = Bukkit.createMerchant("Workbench Level: " + data.getLevelForWorkbench(against.getType()));
-                               // menu.setRecipes();
-                                BluePrint print = data.getRandomBluePrintFor(Rustified.getPlayerObjectFor(clicker), bench.getLevel());
 
-                                Material material = data.getWorkbenchInputs().get(bench.getLevel()).keySet().iterator().next();
-                                int amount  = data.getWorkbenchInputs().get(bench.getLevel()).get(material);
-                                plugin.activeBluePrints.add(print);
-                                MerchantRecipe recipe =  new MerchantRecipe(print.getItemHidden(), 0, 999, false);
 
-                                recipe.addIngredient(new ItemStack(material, amount));
-                                menu.setRecipes(Collections.singletonList(recipe));
 
-                                clicker.openMerchant(menu, false);
+                                    if(WorkbenchLocations.getWorkBenchLocations().getWorkbenchWith(block.getLocation()) == null) return;
+                                    Workbench bench = WorkbenchLocations.getWorkBenchLocations().getWorkbenchWith(block.getLocation());
+                                    Merchant menu = Bukkit.createMerchant("Workbench Level: " + data.getLevelForWorkbench(against.getType()));
+                                    // menu.setRecipes();
+                                    BluePrint print = data.getRandomBluePrintFor(Rustified.getPlayerObjectFor(clicker), bench.getLevel());
 
+                                    Material material = data.getWorkbenchInputs().get(bench.getLevel()).keySet().iterator().next();
+                                    int amount  = data.getWorkbenchInputs().get(bench.getLevel()).get(material);
+                                    plugin.activeBluePrints.add(print);
+                                    MerchantRecipe recipe =  new MerchantRecipe(print.getItemHidden(), 0, 999, false);
+
+                                    recipe.addIngredient(new ItemStack(material, amount));
+                                    menu.setRecipes(Collections.singletonList(recipe));
+
+                                    clicker.openMerchant(menu, false);
+
+                                }
                             }
-                        }
 
+                        }
                     }
+
+
                 }
             }
         }
     }
-}
+
