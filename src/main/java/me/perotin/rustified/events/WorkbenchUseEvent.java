@@ -1,10 +1,7 @@
 package me.perotin.rustified.events;
 
 import me.perotin.rustified.Rustified;
-import me.perotin.rustified.objects.BluePrint;
-import me.perotin.rustified.objects.BluePrintData;
-import me.perotin.rustified.objects.Workbench;
-import me.perotin.rustified.objects.WorkbenchLocations;
+import me.perotin.rustified.objects.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -72,7 +69,8 @@ public class WorkbenchUseEvent implements Listener {
                                     recipe.addIngredient(new ItemStack(material, amount));
                                     menu.setRecipes(Collections.singletonList(recipe));
 
-                                    clicker.openMerchant(menu, false);
+                                    new WorkbenchMenu(print.getItem(), new ItemStack(material, amount), bench.getLevel()).show(clicker);
+                                    //clicker.openMerchant(menu, false);
 
                                 }
                             }

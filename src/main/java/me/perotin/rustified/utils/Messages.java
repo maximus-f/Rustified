@@ -38,6 +38,11 @@ public class Messages {
         sender.sendMessage(getMessage(path));
     }
 
+    public static void sendMessage(String path, String placeholder, String replace, CommandSender sender){
+
+        sender.sendMessage(getMessage(path).replace(placeholder, replace));
+    }
+
 
     // Instead of just displaying 'click to copy' make it display somethng pertaining to the command
     public static void sendMessageTextComponent(String path, Player sender){

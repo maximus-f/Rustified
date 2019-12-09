@@ -20,7 +20,13 @@ blueprint-help-message:
 blueprint-list: "&a/blueprint list - &7Lists all blueprints you have"
 blueprint-list-message: "$prefix$ &bBlueprint&f(&b$amount$&f): $list$"
 
-
+# New trade menu messages
+click-to-accept: "&aClick to agree to the trade!"
+click-accept-lore: "&7&aMake sure to have put in the proper item(s) to trade!"
+insert-item: "&eInsert this item and the amount shown!"
+insert-item-lore: "&7&o $amount$ of $item$"
+not-enough-item: "&cYou need more of $type$ to do this trade!"
+wrong-type: "&cYou need items of type $type$ to do this trade!"
 # Messages used for /blueprint info
 level-bench: "&eLevel:&f $level$"
 level-bench-lore: "&eMaterial Type:&f $type$"
