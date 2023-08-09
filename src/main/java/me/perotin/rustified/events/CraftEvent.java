@@ -33,14 +33,7 @@ public class CraftEvent implements Listener {
                     String msg = Messages.getMessage("crafting-denied");
                     int levelForItem = data.getLevelFor(recipe.getResult().getType());
                     String required = Messages.getMessage("workbench-level-required").replace("$number$", levelForItem+"");
-                    if(msg.contains("/")){
-                        String first = msg.split("/")[0];
-                        String second = msg.split("/")[1];
-                        clicker.sendMessage(first);
-                        clicker.sendMessage(second);
-                        clicker.sendMessage(required);
-                        return;
-                    }
+//
                     clicker.sendMessage(Messages.getMessage("crafting-denied"));
                     clicker.sendMessage(required);
 

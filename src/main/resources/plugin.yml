@@ -2,7 +2,7 @@ name: Rustified
 main: me.perotin.rustified.Rustified
 version: ${project.version}
 author: Perotin
-api-version: 1.13
+api-version: 1.14
 commands:
    blueprint:
       aliases: [blueprints, bp, bps]

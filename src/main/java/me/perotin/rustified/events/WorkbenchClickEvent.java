@@ -26,7 +26,7 @@ public class WorkbenchClickEvent implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
-        event.setCancelled(true);
+       // event.setCancelled(true);
         if(event.getWhoClicked() instanceof Player) {
             Player clicker = (Player) event.getWhoClicked();
             if (cache.containsKey(clicker.getUniqueId())

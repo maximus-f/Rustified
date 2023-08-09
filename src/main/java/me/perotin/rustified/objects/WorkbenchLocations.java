@@ -31,7 +31,7 @@ public class WorkbenchLocations {
         RustFile file = new RustFile(RustFile.RustFileType.WORKBENCHES);
         ArrayList<Workbench> loaded = new ArrayList<>();
 
-       // if(file.getConfiguration().getConfigurationSection("location") != null && !file.getConfiguration().getConfigurationSection("location").getKeys(false).isEmpty()) {
+        if(file.getConfiguration().getConfigurationSection("locations") != null && !file.getConfiguration().getConfigurationSection("locations").getKeys(false).isEmpty()) {
             for (String key : file.getConfiguration().getConfigurationSection("locations").getKeys(false)) {
                 Map<String, Object> deserialized = new HashMap<>();
                 deserialized.put("world", file.getConfiguration().getString("locations." + key + ".world"));
@@ -44,7 +44,7 @@ public class WorkbenchLocations {
 
 
             }
-       // }
+        }
 
         return loaded;
     }

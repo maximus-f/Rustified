@@ -69,8 +69,8 @@ public class WorkbenchUseEvent implements Listener {
                                     recipe.addIngredient(new ItemStack(material, amount));
                                     menu.setRecipes(Collections.singletonList(recipe));
 
-                                    new WorkbenchMenu(print.getItem(), new ItemStack(material, amount), bench.getLevel()).show(clicker);
-                                    //clicker.openMerchant(menu, false);
+                                   // new WorkbenchMenu(print.getItem(), new ItemStack(material, amount), bench.getLevel()).show(clicker);
+                                    clicker.openMerchant(menu, false);
 
                                 }
                             }
