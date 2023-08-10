@@ -39,8 +39,8 @@ public class BluePrintCommand implements CommandExecutor {
                 if(args.length == 0) {
                     sender.sendMessage(ChatColor.GREEN + "---------------- " + ChatColor.AQUA + "Rustified " + ChatColor.GREEN + "----------------");
                     sender.sendMessage(Messages.getMessage("click-msg-copy"));
-                    Messages.sendMessageTextComponent("blueprint-help", player);
-                    Messages.sendMessageTextComponent("blueprint-list", player);
+                    Messages.sendMessageTextComponent("blueprint-help", "/blueprint help", player);
+                    Messages.sendMessageTextComponent("blueprint-list", "/blueprint list", player);
                 } else if(args.length == 1){
                     String arg1 = args[0];
                     if(arg1.equalsIgnoreCase("list")){

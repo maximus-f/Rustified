@@ -61,6 +61,7 @@ public class WorkbenchUseEvent implements Listener {
                                     // menu.setRecipes();
                                     BluePrint print = data.getRandomBluePrintFor(Rustified.getPlayerObjectFor(clicker), bench.getLevel());
 
+                                    event.setCancelled(true);
                                     Material material = data.getWorkbenchInputs().get(bench.getLevel()).keySet().iterator().next();
                                     int amount  = data.getWorkbenchInputs().get(bench.getLevel()).get(material);
                                     plugin.activeBluePrints.add(print);

@@ -8,6 +8,7 @@ import me.perotin.rustified.objects.BluePrint;
 import me.perotin.rustified.objects.BluePrintData;
 import me.perotin.rustified.objects.RustifiedPlayer;
 import me.perotin.rustified.objects.WorkbenchLocations;
+import me.perotin.rustified.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -51,6 +52,7 @@ public class Rustified extends JavaPlugin {
         Bukkit.getOnlinePlayers().forEach(Rustified::getPlayerObjectFor);
         WorkbenchLocations.getWorkBenchLocations();
         BluePrintData.getSingleton();
+        new Metrics(this, 19456);
 
 
     }

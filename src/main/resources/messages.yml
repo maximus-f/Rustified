@@ -39,6 +39,6 @@ how-to-build-lore:
    - "&7Then, place a sign on on the middle block, and you're done!"
    - "&7Blueprints you own are shown in &agreen&7, and ones you can unlock are in &eyellow&7."
 
-
+created-workbench: "&aCreated workbench level: &3$level$"
 # Messages used for /research
 hold-item-to-research: "$prefix$ &cYou must be holding an item that is blueprint-able! View /blueprint info to find said items."

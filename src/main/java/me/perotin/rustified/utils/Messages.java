@@ -45,11 +45,11 @@ public class Messages {
 
 
     // Instead of just displaying 'click to copy' make it display somethng pertaining to the command
-    public static void sendMessageTextComponent(String path, Player sender){
+    public static void sendMessageTextComponent(String path, String command, Player sender){
         String message = getMessage(path);
         TextComponent textComponent = new TextComponent(TextComponent.fromLegacyText(message));
         textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.getMessage("click-to-copy")).create()));
-        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, message));
+        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
         sender.spigot().sendMessage(textComponent);
 
 
